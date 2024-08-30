@@ -1,7 +1,7 @@
 /**
  * Hash table class
  *
- * @author <Put Something Here>
+ * @author Brantson and Adarsh
  * @version <Put Something Here>
  */
 
