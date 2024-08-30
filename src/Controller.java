@@ -38,6 +38,10 @@ public class Controller {
             fullGraph.addEdge(src, dst);
         }
         
+        if(!fullGraph.checkEdge(dst, src)) {
+            fullGraph.addEdge(dst, src);
+        }
+        
     }
     
     public void print() {
