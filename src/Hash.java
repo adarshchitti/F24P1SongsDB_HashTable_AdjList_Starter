@@ -10,42 +10,44 @@ public class Hash {
     private Record[] allRecords;
     private int numberOfRecords;
     int totalSize;
-    public Hash(int size)
-    {
+
+    public Hash(int size) {
         this.allRecords = new Record[size];
         this.numberOfRecords = 0;
         this.totalSize = size;
     }
-    public void insert(Record record)
-    {
-        int index = h(record.key,totalSize);
-        int count=0;
-        while (allRecords[index] != null && !allRecords[index].key.equals(record.key)) {
+
+
+    public void insert(Record record) {
+        int index = h(record.key, totalSize);
+        int count = 0;
+        while (allRecords[index] != null && !allRecords[index].key.equals(
+            record.key)) {
             count++;
-            index = (index + count * count) % totalSize; 
+            index = (index + count * count) % totalSize;
         }
         allRecords[index] = record;
         numberOfRecords++;
-        if(numberOfRecords>(totalSize/2))
-        {
-            expandCapacity();            
+        if (numberOfRecords > (totalSize / 2)) {
+            expandCapacity();
         }
     }
-    private void expandCapacity() 
-    {
-        Record[] temp = allRecords;           
-        totalSize = totalSize * 2;            
-        allRecords = new Record[totalSize];   
-        numberOfRecords = 0;                  
-        
+
+
+    private void expandCapacity() {
+        Record[] temp = allRecords;
+        totalSize = totalSize * 2;
+        allRecords = new Record[totalSize];
+        numberOfRecords = 0;
+
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null) {
-                insert(temp[i]);              
+                insert(temp[i]);
             }
         }
     }
-    
-    
+
+
     /**
      * Compute the hash function
      * 
@@ -78,5 +80,5 @@ public class Hash {
 
         return (int)(Math.abs(sum) % length);
     }
-    
+
 }
