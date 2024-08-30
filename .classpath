@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/student.jar"/>
+	<classpathentry kind="lib" path="C:/CS3114/F24P1SongsDB_HashTable_AdjList_Starter/student.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
