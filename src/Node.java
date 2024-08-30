@@ -1,19 +1,34 @@
-//Represents a node in the graph
-public class Node {
-    private String data;
-    private int index;
+// ----------------------------------------------------------
 
-    public Node(String data, int index) {
-        this.data = data;
-        this.index = index;
+/**
+     * The internal Node class that represents nodes in the linked chain.
+     */
+    public class Node<T> {
+        private T data;
+        private Node<T> next;
+
+        public Node(T data, Node<T> next) {
+            this.data = data;
+            this.next = next;
+        }
+
+
+        public T getData() {
+            return this.data;
+        }
+
+
+        public void setData(T value) {
+            this.data = value;
+        }
+
+
+        public Node<T> getNext() {
+            return this.next;
+        }
+
+
+        public void setNext(Node<T> next) {
+            this.next = next;
+        }
     }
-
-    public String getData() {
-        return data;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-}

@@ -17,7 +17,17 @@ public class Hash {
         this.totalSize = size;
     }
 
-
+    public int find(String value) {
+        for (int i = 0; i < totalSize; i++) {
+            if (allRecords[i] != null) {
+                if (allRecords[i].key.equals(value)) {
+                    return allRecords[i].index;
+                }
+            }
+        }
+        return -1;
+    }
+    
     public void insert(Record record) {
         int index = h(record.key, totalSize);
         int count = 0;

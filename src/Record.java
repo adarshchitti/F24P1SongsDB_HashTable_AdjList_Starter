@@ -1,10 +1,10 @@
 public class Record {
     String key;
-    Node node;
+    int index;
 
-    public Record(String key, Node node) {
+    public Record(String key, int node) {
         this.key = key;
-        this.node = node;
+        index = node;
     } 
 
 }

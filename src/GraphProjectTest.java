@@ -71,4 +71,9 @@ public class GraphProjectTest extends TestCase {
         // assertFuzzyEquals(expectedOutput, actualOutput);
 
     }
+    
+    public void testRead() {
+        GraphProject gp = new GraphProject();
+        gp.beginParsingByLine("solutionTestData/input");
+    }
 }
