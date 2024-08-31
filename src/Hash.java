@@ -9,15 +9,32 @@ public class Hash {
 
     private Record[] allRecords;
     private int numberOfRecords;
-    int totalSize;
-
+    private int totalSize;
+    private int numTombstone;
+    
     public Hash(int size) {
         this.allRecords = new Record[size];
-        this.numberOfRecords = 0;
-        this.totalSize = size;
+        this.setNumberOfRecords(0);
+        this.setTotalSize(size);
+        this.setNumTombstone(0);
     }
 
     public int find(String value) {
+        
+        int index = h(value,getTotalSize());
+        int i = 0;
+        while(allRecords[index]!=null)
+        {
+            if(allRecords[index].key.equals(value))
+            {
+                return index;
+            }
+            i++;
+            index = (index + (i*i))%getTotalSize();
+        }
+        return -1;
+        
+        /*
         for (int i = 0; i < totalSize; i++) {
             if (allRecords[i] != null) {
                 if (allRecords[i].key.equals(value)) {
@@ -26,19 +43,32 @@ public class Hash {
             }
         }
         return -1;
+        */
+    }
+    public boolean remove(String value)
+    {
+        int index = find(value);
+        if(index==-1)
+        {
+            return false;
+        }
+        allRecords[index].key = "TOMBSTONE";
+        numTombstone++;
+        return true;
+        
     }
     
     public void insert(Record record) {
-        int index = h(record.key, totalSize);
+        int index = h(record.key, getTotalSize());
         int count = 0;
         while (allRecords[index] != null && !allRecords[index].key.equals(
             record.key)) {
             count++;
-            index = (index + count * count) % totalSize;
+            index = (index + count * count) % getTotalSize();
         }
         allRecords[index] = record;
-        numberOfRecords++;
-        if (numberOfRecords > (totalSize / 2)) {
+        setNumberOfRecords(getNumberOfRecords() + 1);
+        if (getNumberOfRecords() > (getTotalSize() / 2)) {
             expandCapacity();
         }
     }
@@ -46,9 +76,9 @@ public class Hash {
 
     private void expandCapacity() {
         Record[] temp = allRecords;
-        totalSize = totalSize * 2;
-        allRecords = new Record[totalSize];
-        numberOfRecords = 0;
+        setTotalSize(getTotalSize() * 2);
+        allRecords = new Record[getTotalSize()];
+        setNumberOfRecords(0);
 
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null) {
@@ -89,6 +119,30 @@ public class Hash {
         }
 
         return (int)(Math.abs(sum) % length);
+    }
+
+    public int getNumberOfRecords() {
+        return numberOfRecords;
+    }
+
+    public void setNumberOfRecords(int numberOfRecords) {
+        this.numberOfRecords = numberOfRecords;
+    }
+
+    public int getTotalSize() {
+        return totalSize;
+    }
+
+    public void setTotalSize(int totalSize) {
+        this.totalSize = totalSize;
+    }
+
+    public int getNumTombstone() {
+        return numTombstone;
+    }
+
+    public void setNumTombstone(int numTombstone) {
+        this.numTombstone = numTombstone;
     }
 
 }

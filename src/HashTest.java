@@ -5,13 +5,42 @@ import student.TestCase;
  * @version <Put something here>
  */
 public class HashTest extends TestCase {
+    private Record<String> rec1;
+    private Record<String> rec2;
+    private Record<String> rec3;
+    private Hash toTest;
     /**
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
-        // Nothing Here
+        rec1 = new Record<String>("hey",new Node<String>(null, null));
+        rec2 = new Record<String>("hi",new Node<String>(null, null));
+        rec3 = new Record<String>("hello",new Node<String>(null, null));
+        toTest = new Hash(2);
     }
 
+    public void testFind()
+    {
+        toTest.insert(rec1);
+        assertTrue(toTest.find("hey") != -1);
+        assertEquals(-1,toTest.find("bye"));        
+    }
+    public void testInsert()
+    {
+        toTest.insert(rec1);
+        assertEquals(1,toTest.getNumberOfRecords()); 
+        toTest.insert(rec2);
+        assertEquals(4,toTest.getTotalSize());
+    }
+    public void testRemove()
+    {
+        toTest.insert(rec1);
+        toTest.insert(rec2);
+        int index = toTest.find("hi");
+        assertTrue(toTest.remove("hi"));
+        assertEquals(1,toTest.getNumTombstone());
+        assertFalse(toTest.remove("hhh"));
+    }
 
     /**
      * Check out the sfold method
