@@ -59,16 +59,19 @@ public class Hash {
     }
     
     public void insert(Record record) {
-        int index = h(record.key, getTotalSize());
-        int count = 0;
-        while (allRecords[index] != null && !allRecords[index].key.equals(
-            record.key)) {
-            count++;
-            index = (index + count * count) % getTotalSize();
+        if(find(record.key) == -1)
+        {
+            int index = h(record.key, getTotalSize());
+            int count = 0;
+            while (allRecords[index] != null)
+            {
+                count++;
+                index = (index + count * count) % getTotalSize();
+            }
+            allRecords[index] = record;
+            numberOfRecords++;
         }
-        allRecords[index] = record;
-        setNumberOfRecords(getNumberOfRecords() + 1);
-        if (getNumberOfRecords() > (getTotalSize() / 2)) {
+        if (numberOfRecords > (totalSize / 2)) {
             expandCapacity();
         }
     }

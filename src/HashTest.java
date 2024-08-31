@@ -23,20 +23,23 @@ public class HashTest extends TestCase {
     {
         toTest.insert(rec1);
         assertTrue(toTest.find("hey") != -1);
+        
         assertEquals(-1,toTest.find("bye"));        
     }
     public void testInsert()
     {
         toTest.insert(rec1);
-        assertEquals(1,toTest.getNumberOfRecords()); 
+        assertEquals(1,toTest.getNumberOfRecords());
+        toTest.insert(rec1);
+        assertEquals(1,toTest.getNumberOfRecords());
         toTest.insert(rec2);
         assertEquals(4,toTest.getTotalSize());
+        
     }
     public void testRemove()
     {
         toTest.insert(rec1);
         toTest.insert(rec2);
-        int index = toTest.find("hi");
         assertTrue(toTest.remove("hi"));
         assertEquals(1,toTest.getNumTombstone());
         assertFalse(toTest.remove("hhh"));
