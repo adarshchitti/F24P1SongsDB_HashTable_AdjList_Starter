@@ -7,5 +7,3 @@ insert Ma Rainey<SEP>Long Lonesome Blues
 insert Ma Rainey<SEP>Mississippi Boweavil Blues
 insert Ma Rainey<SEP>Fixin' To Die Blues
 print graph
-remove artist Ma Rainey
-print graph
