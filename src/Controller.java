@@ -44,6 +44,20 @@ public class Controller {
         
     }
     
+    public void remove(String value) {
+        if (artists.find(value) != -1) {
+            artists.remove(value);
+            fullGraph.removeRecord(value);
+        }
+        else if (songs.find(value) != -1) {
+            songs.remove(value);
+            fullGraph.removeRecord(value);
+        }
+        else {
+            System.out.print("Not in hash table yet");
+        }
+    }
+    
     public void print() {
         fullGraph.print();
     }

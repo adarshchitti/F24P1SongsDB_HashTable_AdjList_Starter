@@ -71,6 +71,7 @@ public class GraphProject {
                         switch (type) {
                             case "artist":
                                 System.out.println("Artist Delete: " + token);
+                                control.remove(token);
                                 break;
                             case "song":
                                 System.out.println("Song Delete: " + token);
