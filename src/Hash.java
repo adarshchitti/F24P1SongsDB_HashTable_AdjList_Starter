@@ -27,7 +27,7 @@ public class Hash {
         {
             if(allRecords[index].key.equals(value))
             {
-                return index;
+                return allRecords[index].index;
             }
             i++;
             index = (index + (i*i))%getTotalSize();

@@ -5,45 +5,49 @@ import student.TestCase;
  * @version <Put something here>
  */
 public class HashTest extends TestCase {
-    private Record<String> rec1;
-    private Record<String> rec2;
-    private Record<String> rec3;
+    private Record rec1;
+    private Record rec2;
+    private Record rec3;
     private Hash toTest;
+
     /**
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
-        rec1 = new Record<String>("hey",new Node<String>(null, null));
-        rec2 = new Record<String>("hi",new Node<String>(null, null));
-        rec3 = new Record<String>("hello",new Node<String>(null, null));
+        rec1 = new Record("hey", 0);
+        rec2 = new Record("hi", 0);
+        rec3 = new Record("hello", 0);
         toTest = new Hash(2);
     }
 
-    public void testFind()
-    {
+
+    public void testFind() {
         toTest.insert(rec1);
         assertTrue(toTest.find("hey") != -1);
-        
-        assertEquals(-1,toTest.find("bye"));        
+
+        assertEquals(-1, toTest.find("bye"));
     }
-    public void testInsert()
-    {
+
+
+    public void testInsert() {
         toTest.insert(rec1);
-        assertEquals(1,toTest.getNumberOfRecords());
+        assertEquals(1, toTest.getNumberOfRecords());
         toTest.insert(rec1);
-        assertEquals(1,toTest.getNumberOfRecords());
+        assertEquals(1, toTest.getNumberOfRecords());
         toTest.insert(rec2);
-        assertEquals(4,toTest.getTotalSize());
-        
+        assertEquals(4, toTest.getTotalSize());
+
     }
-    public void testRemove()
-    {
+
+
+    public void testRemove() {
         toTest.insert(rec1);
         toTest.insert(rec2);
         assertTrue(toTest.remove("hi"));
-        assertEquals(1,toTest.getNumTombstone());
+        assertEquals(1, toTest.getNumTombstone());
         assertFalse(toTest.remove("hhh"));
     }
+
 
     /**
      * Check out the sfold method
