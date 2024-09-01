@@ -1,28 +1,28 @@
 
 public class Graph {
-    LinkedList<Node<String>>[] alist;
+    DLList<String>[] alist;
     int totalLength;
 
     public Graph(int length) {
-        alist = new LinkedList[length];
+        alist = new DLList[length];
         totalLength = length;
     }
 
 
     public void addRecord(Record record) {
-        alist[record.index] = new LinkedList<Node<String>>();
-        alist[record.index].addToFront(new Node<String>(record.key, null));
+        alist[record.index] = new DLList<String>();
+        alist[record.index].add(record.key);
     }
 
 
     public void addEdge(int src, int dst) {
-        alist[src].addToRear(alist[dst].get(0));
+        alist[src].add(alist[dst].get(0));
     }
 
 
     public boolean checkEdge(int src, int dst) {
-        for (Node<String> node : alist[src]) {
-            if (node.getData().equals(alist[dst].get(0).getData())) {
+        for (String node : alist[src]) {
+            if (node.equals(alist[dst].get(0))) {
                 return true;
             }
         }
@@ -33,12 +33,20 @@ public class Graph {
     public void print() {
         for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null) {
-                for (Node<String> node : alist[i]) {
-                    System.out.print(node.getData() + " -> ");
+                for (String node : alist[i]) {
+                    System.out.print(node + " -> ");
                 }
                 System.out.println();
             }
         }
+    }
+    
+    public void removeEdge(int src, int dst) {
+        
+    }
+    
+    public void removeRecord(Record record) {
+        
     }
 
 }
