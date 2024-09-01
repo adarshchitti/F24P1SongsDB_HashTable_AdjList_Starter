@@ -1,3 +1,5 @@
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import student.TestCase;
 
 /**
@@ -48,6 +50,18 @@ public class HashTest extends TestCase {
         assertFalse(toTest.remove("hhh"));
     }
 
+    public void testPrint()
+    {
+        toTest.insert(rec1);
+        toTest.insert(rec2);
+        
+        String ans = toTest.print();
+        
+        String expected = "Index: 0 Data: hey\n" +
+                          "Index: 1 Data: hi\n";
+        assertEquals(expected,ans);
+        
+    }
 
     /**
      * Check out the sfold method

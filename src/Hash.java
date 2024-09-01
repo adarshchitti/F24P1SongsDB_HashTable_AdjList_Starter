@@ -123,6 +123,20 @@ public class Hash {
 
         return (int)(Math.abs(sum) % length);
     }
+    
+    public String print()
+    {
+        String result="";
+        for(int i =0; i<totalSize;i++)
+        {
+            if(allRecords[i]!=null)
+            {
+                result = result + "Index: "+i+" Data: "+allRecords[i].key+"\n";
+            }
+        }
+        
+        return result;
+    }
 
     public int getNumberOfRecords() {
         return numberOfRecords;
