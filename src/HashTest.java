@@ -1,5 +1,3 @@
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import student.TestCase;
 
 /**
@@ -29,6 +27,12 @@ public class HashTest extends TestCase {
 
         assertEquals(-1, toTest.find("bye"));
     }
+    public void testHashFind() {
+        toTest.insert(rec1);
+        assertTrue(toTest.find("hey") != -1);
+
+        assertEquals(-1, toTest.find("bye"));
+    }
 
 
     public void testInsert() {
@@ -45,9 +49,12 @@ public class HashTest extends TestCase {
     public void testRemove() {
         toTest.insert(rec1);
         toTest.insert(rec2);
+        int index = toTest.hashFind("hi");
         assertTrue(toTest.remove("hi"));
         assertEquals(1, toTest.getNumTombstone());
         assertFalse(toTest.remove("hhh"));
+        Record[] test = toTest.getAllRecords();
+        assertEquals(test[index].key,"TOMBSTONE");
     }
 
     public void testPrint()
