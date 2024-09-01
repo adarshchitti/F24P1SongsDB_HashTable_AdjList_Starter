@@ -18,7 +18,8 @@ public class Graph {
     public void addEdge(int src, int dst) {
         alist[src].addToRear(alist[dst].get(0));
     }
-    
+
+
     public boolean checkEdge(int src, int dst) {
         for (Node<String> node : alist[src]) {
             if (node.getData().equals(alist[dst].get(0).getData())) {
@@ -27,13 +28,16 @@ public class Graph {
         }
         return false;
     }
-    
+
+
     public void print() {
-        for (LinkedList<Node<String>> list : alist) {
-            for (Node<String> node : list) {
-                System.out.print(node.getData() + " -> ");
+        for (int i = 0; i < totalLength; i++) {
+            if (alist[i] != null) {
+                for (Node<String> node : alist[i]) {
+                    System.out.print(node.getData() + " -> ");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 

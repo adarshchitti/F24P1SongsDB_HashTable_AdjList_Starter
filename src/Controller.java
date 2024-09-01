@@ -27,7 +27,7 @@ public class Controller {
         if (songs.find(song) == -1) {
             dst = index;
             Record songRecord = new Record(song, index++);
-            artists.insert(songRecord);
+            songs.insert(songRecord);
             fullGraph.addRecord(songRecord);
         }
         else {
