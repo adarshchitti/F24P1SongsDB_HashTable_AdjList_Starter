@@ -1,11 +1,21 @@
 
-public class Graph {
+public class Graph 
+{
     DLList<Record>[] alist;
     int totalLength;
+    int[] parents;
+    int[] weight;
 
     public Graph(int length) {
         alist = new DLList[length];
         totalLength = length;
+        parents = new int[length];
+        weight = new int[length];
+        for (int i=0; i<length; i++) 
+        {
+            parents[i] = -1; 
+            weight[i]=0;
+        }
     }
 
 
@@ -17,6 +27,7 @@ public class Graph {
 
     public void addEdge(int src, int dst) {
         alist[src].add(alist[dst].get(0));
+        union(src, dst);
     }
 
 
@@ -31,7 +42,8 @@ public class Graph {
 
 
     public void print() {
-        for (int i = 0; i < totalLength; i++) {
+        for (int i = 0; i < totalLength; i++) 
+        {
             if (alist[i] != null) {
                 for (Record node : alist[i]) {
                     System.out.print(node.key + " -> ");
@@ -55,5 +67,50 @@ public class Graph {
             }
         }
     }
+    
+    public int find(int a)
+    {
+        if (parents[a] == -1) return a; // At root
+        parents[a] = find(parents[a]);
+        return parents[a];
+    }
+    public void union(int a, int b)
+    {
+        int r1 = find(a);
+        int r2 = find(b);
+        
+        if(r1!=r2)
+        {
+            if(weight[r2]>weight[r1])
+            {
+                parents[r1]=r2;
+                weight[r2] += weight[r1];
+            }
+            else
+            {
+                parents[r2]=r1;
+                weight[r1] += weight[r2];
+            }
+        }
+        
+        
+    }
+    
+    public int connectedComponents()
+    {
+        int max = weight[0];
+        for(int i = 1; i < weight.length;i++)
+        {
+            if(weight[i]>max)
+            {
+                max = weight[i];
+            }
+        }
+        
+        return max;
+    }
+    
+    
+    
 
 }
