@@ -14,7 +14,7 @@ public class Graph
         for (int i=0; i<length; i++) 
         {
             parents[i] = -1; 
-            weight[i]=0;
+            weight[i]=1;
         }
     }
 

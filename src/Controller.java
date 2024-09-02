@@ -37,10 +37,11 @@ public class Controller {
         if(!fullGraph.checkEdge(src, dst)) {
             fullGraph.addEdge(src, dst);
         }
-        
+        /*
         if(!fullGraph.checkEdge(dst, src)) {
             fullGraph.addEdge(dst, src);
         }
+        */
         
     }
     
@@ -60,5 +61,6 @@ public class Controller {
     
     public void print() {
         fullGraph.print();
+        System.out.print(fullGraph.connectedComponents());
     }
 }
