@@ -7,7 +7,6 @@ import student.TestCase;
 public class HashTest extends TestCase {
     private Record rec1;
     private Record rec2;
-    private Record rec3;
     private Hash toTest;
 
     /**
@@ -16,17 +15,22 @@ public class HashTest extends TestCase {
     public void setUp() {
         rec1 = new Record("hey", 0);
         rec2 = new Record("hi", 0);
-        rec3 = new Record("hello", 0);
         toTest = new Hash(2);
     }
 
 
+    /*
+     * Checks out the Find method
+     */
     public void testFind() {
         toTest.insert(rec1);
         assertTrue(toTest.find("hey") != -1);
 
         assertEquals(-1, toTest.find("bye"));
     }
+    /*
+     * Checks out the hashFind method
+     */
     public void testHashFind() {
         toTest.insert(rec1);
         assertTrue(toTest.find("hey") != -1);
@@ -34,7 +38,9 @@ public class HashTest extends TestCase {
         assertEquals(-1, toTest.find("bye"));
     }
 
-
+    /*
+     * Tests the insert method
+     */
     public void testInsert() {
         toTest.insert(rec1);
         assertEquals(1, toTest.getNumberOfRecords());
@@ -46,6 +52,9 @@ public class HashTest extends TestCase {
     }
 
 
+    /*
+     * Tests remove method
+     */
     public void testRemove() {
         toTest.insert(rec1);
         toTest.insert(rec2);
@@ -55,8 +64,11 @@ public class HashTest extends TestCase {
         assertFalse(toTest.remove("hhh"));
         Record[] test = toTest.getAllRecords();
         assertEquals(test[index].key,"TOMBSTONE");
+        assertEquals(1,toTest.getNumTombstone());
     }
-
+    /*
+     * Tests print method
+     */
     public void testPrint()
     {
         toTest.insert(rec1);

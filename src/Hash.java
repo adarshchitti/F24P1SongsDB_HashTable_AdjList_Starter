@@ -12,6 +12,9 @@ public class Hash {
     private int totalSize;
     private int numTombstone;
     
+    /*
+     * Constructor for a Hash Object
+     */
     public Hash(int size) {
         this.setAllRecords(new Record[size]);
         this.setNumberOfRecords(0);
@@ -19,6 +22,7 @@ public class Hash {
         this.setNumTombstone(0);
     }
 
+ 
     public int find(String value) {
         
         int index = h(value,getTotalSize());
@@ -34,17 +38,12 @@ public class Hash {
         }
         return -1;
         
-        /*
-        for (int i = 0; i < totalSize; i++) {
-            if (allRecords[i] != null) {
-                if (allRecords[i].key.equals(value)) {
-                    return allRecords[i].index;
-                }
-            }
-        }
-        return -1;
-        */
     }
+    /*
+     * Find method to find the index of a record stored in the hash
+     * If not found returns -1
+     * If found return Hash Index
+     */
     public int hashFind(String value) {
         
         int index = h(value,getTotalSize());
@@ -59,18 +58,13 @@ public class Hash {
             index = (index + (i*i))%getTotalSize();
         }
         return -1;
-        
-        /*
-        for (int i = 0; i < totalSize; i++) {
-            if (allRecords[i] != null) {
-                if (allRecords[i].key.equals(value)) {
-                    return allRecords[i].index;
-                }
-            }
-        }
-        return -1;
-        */
     }
+    
+    /*
+     * Removes a record with the specified key from the hash table by setting it as a tombstone.
+     * Returns true if removed 
+     * Return false if was not removed 
+     */
     public boolean remove(String value)
     {
         int index = hashFind(value);
@@ -83,7 +77,11 @@ public class Hash {
         return true;
         
     }
-    
+    /*
+     * Inserts a new record into the hash table. 
+     * Uses quadratic probing to resolve collisions. 
+     * If the table becomes more than 50% full, expands its capacity.
+     */
     public void insert(Record record) {
         if(hashFind(record.key) == -1)
         {
@@ -102,7 +100,11 @@ public class Hash {
         }
     }
 
-
+    
+    /*
+     * Helper method for insert.
+     * Doubles the total size of the Hash table and rehashes the data.
+     */
     private void expandCapacity() {
         Record[] temp = getAllRecords();
         setTotalSize(getTotalSize() * 2);
@@ -150,6 +152,10 @@ public class Hash {
         return (int)(Math.abs(sum) % length);
     }
     
+    /*
+     * Prints the contents of the hash table, showing each record's index and key.
+     * Returns a string representation of the table.
+     */
     public String print()
     {
         String result="";
@@ -164,6 +170,7 @@ public class Hash {
         return result;
     }
 
+ // Getter and setter methods for the class attributes
     public int getNumberOfRecords() {
         return numberOfRecords;
     }
