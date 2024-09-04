@@ -38,23 +38,22 @@ public class Controller {
         if (!fullGraph.checkEdge(src, dst)) {
             fullGraph.addEdge(src, dst);
         }
-        /*
-         * if(!fullGraph.checkEdge(dst, src)) {
-         * fullGraph.addEdge(dst, src);
-         * }
-         */
+        
+        if (!fullGraph.checkEdge(dst, src)) {
+            fullGraph.addEdge(dst, src);
+        }
 
     }
 
 
     public void remove(String value) {
         if (artists.find(value) != -1) {
-            artists.remove(value);
             fullGraph.removeRecord(value);
+            artists.remove(value);
         }
         else if (songs.find(value) != -1) {
-            songs.remove(value);
             fullGraph.removeRecord(value);
+            songs.remove(value);
         }
         else {
             System.out.print("Not in hash table yet");

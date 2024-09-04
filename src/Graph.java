@@ -4,14 +4,14 @@ public class Graph {
     int totalLength;
     int[] parents;
     int[] weight;
-    int numOfRecords;
+    int numOfConnectedRecords;
 
     public Graph(int length) {
         alist = new DLList[length];
         totalLength = length;
         parents = new int[length];
         weight = new int[length];
-        numOfRecords = 0;
+        numOfConnectedRecords = 0;
         for (int i = 0; i < length; i++) {
             parents[i] = -1;
             weight[i] = 1;
@@ -22,7 +22,6 @@ public class Graph {
     public void addRecord(Record record) {
         alist[record.index] = new DLList<Record>();
         alist[record.index].add(record);
-        numOfRecords++;
     }
 
 
@@ -56,17 +55,24 @@ public class Graph {
 
     public void removeEdge(int src, int dst) {
         alist[src].remove(alist[dst].get(0));
+        alist[dst].remove(alist[src].get(0));
     }
 
 
     public void removeRecord(String record) {
         for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null && alist[i].get(0).key.equals(record)) {
-                for (Record node : alist[i]) {
-                    removeEdge(node.index, i);
+                int parent = find(i);
+                weight[parent] = weight[parent] - alist[i].size() + numOfConnectedRecords;
+                for (int j = alist[i].size() - 1; j > 0; j--) {
+                    if (alist[alist[i].get(1).index].size() == 2) {
+                        parents[alist[i].get(1).index] = -1;
+                    }
+                    removeEdge(i, alist[i].get(1).index);
                 }
                 alist[i].remove(0);
-                numOfRecords--;
+                parents[i] = -1;
+                break;
             }
         }
     }
@@ -88,6 +94,7 @@ public class Graph {
             if (weight[r2] > weight[r1]) {
                 parents[r1] = r2;
                 weight[r2] += weight[r1];
+                numOfConnectedRecords++;
             }
             else {
                 parents[r2] = r1;
@@ -114,11 +121,13 @@ public class Graph {
         int temp;
         int curr = -1;
         int components = 0;
-        for (int i = 0; i < numOfRecords; i++) {
-            temp = find(i);
-            if (curr != temp) {
-                curr = temp;
-                components++;
+        for (int i = 0; i < parents.length; i++) {
+            if (alist[i] != null) {
+                temp = find(i);
+                if (curr != temp && parents[i] != -1) {
+                    curr = temp;
+                    components++;
+                }
             }
         }
         return components;
