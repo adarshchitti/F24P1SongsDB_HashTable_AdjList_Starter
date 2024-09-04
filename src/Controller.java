@@ -6,13 +6,14 @@ public class Controller {
     int index = 0;
     int src;
     int dst;
-    
+
     public Controller(int length) {
         songs = new Hash(length);
         artists = new Hash(length);
         fullGraph = new Graph(length);
     }
-    
+
+
     public void insert(String artist, String song) {
         if (artists.find(artist) == -1) {
             src = index;
@@ -23,7 +24,7 @@ public class Controller {
         else {
             src = artists.find(artist);
         }
-            
+
         if (songs.find(song) == -1) {
             dst = index;
             Record songRecord = new Record(song, index++);
@@ -33,18 +34,19 @@ public class Controller {
         else {
             dst = songs.find(song);
         }
-        
-        if(!fullGraph.checkEdge(src, dst)) {
+
+        if (!fullGraph.checkEdge(src, dst)) {
             fullGraph.addEdge(src, dst);
         }
         /*
-        if(!fullGraph.checkEdge(dst, src)) {
-            fullGraph.addEdge(dst, src);
-        }
-        */
-        
+         * if(!fullGraph.checkEdge(dst, src)) {
+         * fullGraph.addEdge(dst, src);
+         * }
+         */
+
     }
-    
+
+
     public void remove(String value) {
         if (artists.find(value) != -1) {
             artists.remove(value);
@@ -58,9 +60,11 @@ public class Controller {
             System.out.print("Not in hash table yet");
         }
     }
-    
+
+
     public void print() {
         fullGraph.print();
-        System.out.print(fullGraph.connectedComponents());
+        System.out.println(fullGraph.connectedElements());
+        System.out.println(fullGraph.connectedComponents());
     }
 }

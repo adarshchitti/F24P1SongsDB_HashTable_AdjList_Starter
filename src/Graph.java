@@ -1,20 +1,20 @@
 
-public class Graph 
-{
+public class Graph {
     DLList<Record>[] alist;
     int totalLength;
     int[] parents;
     int[] weight;
+    int numOfRecords;
 
     public Graph(int length) {
         alist = new DLList[length];
         totalLength = length;
         parents = new int[length];
         weight = new int[length];
-        for (int i=0; i<length; i++) 
-        {
-            parents[i] = -1; 
-            weight[i]=1;
+        numOfRecords = 0;
+        for (int i = 0; i < length; i++) {
+            parents[i] = -1;
+            weight[i] = 1;
         }
     }
 
@@ -22,6 +22,7 @@ public class Graph
     public void addRecord(Record record) {
         alist[record.index] = new DLList<Record>();
         alist[record.index].add(record);
+        numOfRecords++;
     }
 
 
@@ -42,8 +43,7 @@ public class Graph
 
 
     public void print() {
-        for (int i = 0; i < totalLength; i++) 
-        {
+        for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null) {
                 for (Record node : alist[i]) {
                     System.out.print(node.key + " -> ");
@@ -52,11 +52,13 @@ public class Graph
             }
         }
     }
-    
+
+
     public void removeEdge(int src, int dst) {
         alist[src].remove(alist[dst].get(0));
     }
-    
+
+
     public void removeRecord(String record) {
         for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null && alist[i].get(0).key.equals(record)) {
@@ -64,53 +66,62 @@ public class Graph
                     removeEdge(node.index, i);
                 }
                 alist[i].remove(0);
+                numOfRecords--;
             }
         }
     }
-    
-    public int find(int a)
-    {
-        if (parents[a] == -1) return a; // At root
+
+
+    public int find(int a) {
+        if (parents[a] == -1)
+            return a; // At root
         parents[a] = find(parents[a]);
         return parents[a];
     }
-    public void union(int a, int b)
-    {
+
+
+    public void union(int a, int b) {
         int r1 = find(a);
         int r2 = find(b);
-        
-        if(r1!=r2)
-        {
-            if(weight[r2]>weight[r1])
-            {
-                parents[r1]=r2;
+
+        if (r1 != r2) {
+            if (weight[r2] > weight[r1]) {
+                parents[r1] = r2;
                 weight[r2] += weight[r1];
             }
-            else
-            {
-                parents[r2]=r1;
+            else {
+                parents[r2] = r1;
                 weight[r1] += weight[r2];
             }
         }
-        
-        
+
     }
-    
-    public int connectedComponents()
-    {
+
+
+    public int connectedElements() {
         int max = weight[0];
-        for(int i = 1; i < weight.length;i++)
-        {
-            if(weight[i]>max)
-            {
+        for (int i = 1; i < weight.length; i++) {
+            if (weight[i] > max) {
                 max = weight[i];
             }
         }
-        
+
         return max;
     }
-    
-    
-    
+
+
+    public int connectedComponents() {
+        int temp;
+        int curr = -1;
+        int components = 0;
+        for (int i = 0; i < numOfRecords; i++) {
+            temp = find(i);
+            if (curr != temp) {
+                curr = temp;
+                components++;
+            }
+        }
+        return components;
+    }
 
 }
