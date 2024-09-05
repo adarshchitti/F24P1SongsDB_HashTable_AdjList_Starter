@@ -42,9 +42,12 @@ public class GraphProject {
         beginParsingByLine(args[1]);
     }
 
+
     /**
      * Reads file line by line
-     * @param filename to be read
+     * 
+     * @param filename
+     *            to be read
      */
     public static void beginParsingByLine(String filename) {
         try {
