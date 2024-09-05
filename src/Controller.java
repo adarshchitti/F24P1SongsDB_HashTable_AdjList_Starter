@@ -48,11 +48,13 @@ public class Controller {
             artists.insert(artistRecord);
             fullGraph.addRecord(artistRecord);
             if (artists.getTotalSize() == (length * 2)) {
-                System.out.println("Artist hash table size doubled");
+                System.out.println("Artist hash table size doubled.");
+                
                 length = artists.getTotalSize();
+
             }
             System.out.println("|" + artist
-                + "| is added to the Artist Database");
+                + "| is added to the Artist database");
         }
         else {
             src = artists.find(artist);
@@ -67,7 +69,7 @@ public class Controller {
                 System.out.println("Song hash table size doubled");
                 length = songs.getTotalSize();
             }
-            System.out.println("|" + song + "| is added to the Song Database");
+            System.out.println("|" + song + "| is added to the Song database.");
         }
         else {
             dst = songs.find(song);

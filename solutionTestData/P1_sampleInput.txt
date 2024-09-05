@@ -1,19 +1,16 @@
-remove song When Summer's Through
-print song
-print artist
-print graph
 insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
-insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
-insert Blind Lemon Jefferson<SEP>Long   Lonesome Blues
-insert Blind Lemon Jefferson<SEP>long Lonesome Blues
-insert Ma Rainey<SEP>Ma Rainey's Black Bottom
-insert Ma Rainey<SEP>Long Lonesome Blues
-insert Ma Rainey<SEP>Mississippi Boweavil Blues
-insert Ma Rainey<SEP>Fixin' To Die Blues
-print artist
-print song
-print graph
-remove song Sleepy
-remove artist ma rainey
-remove artist Ma Rainey
-print artist
+insert Blindn<SEP>Long Lonesome Bluesssss
+insert b<SEP>c
+insert d<SEP>e
+insert z<SEP>a
+insert x<SEP>y
+insert s<SEP>w
+insert q<SEP>t
+insert AA<SEP>BB
+insert aaaaaaa<SEP>vvvvvv
+insert akakak<SEP>Lgo
+insert goo<SEP>ssssss
+insert n<SEP>aye
+insert sssaasa<SEP>ohoh
+insert abcde<SEP>fgh
+insert Lemon<SEP>Long

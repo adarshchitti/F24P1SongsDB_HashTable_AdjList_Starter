@@ -191,8 +191,8 @@ public class Hash {
     public String print() {
         String result = "";
         for (int i = 0; i < totalSize; i++) {
-            if (getAllRecords()[i] != null) {
-                result = result + i + ":" + " |" + getAllRecords()[i].key
+            if (allRecords[i] != null) {
+                result = result + i + ":" + " |" + allRecords[i].key
                     + "|\n";
             }
         }
