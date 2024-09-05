@@ -31,18 +31,19 @@ import java.io.*;
 // letter of this restriction.
 
 public class GraphProject {
-    int length = 10;
+    static int length = 10;
 
     /**
      * @param args
      *            Command line parameters
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
+        length = Integer.parseInt(args[0]);
+        beginParsingByLine(args[1]);
     }
 
 
-    public void beginParsingByLine(String filename) {
+    public static void beginParsingByLine(String filename) {
         try {
             Controller control = new Controller(length);
             Scanner sc = new Scanner(new File(filename));
