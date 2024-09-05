@@ -14,7 +14,8 @@ public class Controller {
     private int index = 0;
     private int src;
     private int dst;
-    private int length;
+    private int aLen;
+    private int sLen;
 
     /**
      * Constructs a Controller with the given length for hash tables and graph.
@@ -26,7 +27,8 @@ public class Controller {
         songs = new Hash(length);
         artists = new Hash(length);
         fullGraph = new Graph(length);
-        this.length = length;
+        aLen = length;
+        sLen = length;
     }
 
 
@@ -47,14 +49,14 @@ public class Controller {
             Record artistRecord = new Record(artist, index++);
             artists.insert(artistRecord);
             fullGraph.addRecord(artistRecord);
-            if (artists.getTotalSize() == (length * 2)) {
+            if (artists.getTotalSize() == (aLen * 2)) {
                 System.out.println("Artist hash table size doubled.");
-                
-                length = artists.getTotalSize();
+
+                aLen = artists.getTotalSize();
 
             }
             System.out.println("|" + artist
-                + "| is added to the Artist database");
+                + "| is added to the Artist database.");
         }
         else {
             src = artists.find(artist);
@@ -65,9 +67,9 @@ public class Controller {
             Record songRecord = new Record(song, index++);
             songs.insert(songRecord);
             fullGraph.addRecord(songRecord);
-            if (songs.getTotalSize() == (length * 2)) {
-                System.out.println("Song hash table size doubled");
-                length = songs.getTotalSize();
+            if (songs.getTotalSize() == (sLen * 2)) {
+                System.out.println("Song hash table size doubled.");
+                sLen = songs.getTotalSize();
             }
             System.out.println("|" + song + "| is added to the Song database.");
         }
