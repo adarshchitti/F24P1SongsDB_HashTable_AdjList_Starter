@@ -84,6 +84,9 @@ public class Hash {
      * If the table becomes more than 50% full, expands its capacity.
      */
     public void insert(Record record) {
+        if (numberOfRecords >= (totalSize / 2)) {
+            expandCapacity();
+        }
         if (hashFind(record.key) == -1) {
             int index = h(record.key, getTotalSize());
             int count = 0;
@@ -94,9 +97,6 @@ public class Hash {
             getAllRecords()[index] = record;
             numberOfRecords++;
         }
-        if (numberOfRecords > (totalSize / 2)) {
-            expandCapacity();
-        }
     }
 
 
@@ -105,11 +105,18 @@ public class Hash {
      * Doubles the total size of the Hash table and rehashes the data.
      */
     private void expandCapacity() {
-        Record[] temp = getAllRecords();
-        setTotalSize(getTotalSize() * 2);
-        setAllRecords(new Record[getTotalSize()]);
-        setNumberOfRecords(0);
-
+        Record[] temp = new Record[allRecords.length];
+        totalSize = totalSize*2;
+        for(int i = 0; i < temp.length; i++)
+        {
+            if(allRecords[i]!=null)
+            {
+                Record rec = new Record(allRecords[i].key,allRecords[i].index);
+                temp[i] = rec;
+            }
+        }
+        allRecords = new Record[totalSize];
+        numberOfRecords = 0;
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null) {
                 insert(temp[i]);
