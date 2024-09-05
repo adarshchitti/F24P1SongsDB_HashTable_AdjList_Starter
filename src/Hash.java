@@ -192,7 +192,15 @@ public class Hash {
         String result = "";
         for (int i = 0; i < totalSize; i++) {
             if (allRecords[i] != null) {
-                result = result + i + ":" + " |" + allRecords[i].key + "|\n";
+                if(allRecords[i].key.equals("TOMBSTONE"))
+                {
+                    result = result + i + ": "  + allRecords[i].key + "\n";
+                }
+                else
+                {
+                    result = result + i + ":" + " |" + allRecords[i].key + "|\n";
+                }
+                
             }
         }
 
