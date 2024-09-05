@@ -31,7 +31,7 @@ import java.io.*;
 // letter of this restriction.
 
 public class GraphProject {
-    static int length = 10;
+    private static int length = 10;
 
     /**
      * @param args
@@ -42,7 +42,10 @@ public class GraphProject {
         beginParsingByLine(args[1]);
     }
 
-
+    /**
+     * Reads file line by line
+     * @param filename to be read
+     */
     public static void beginParsingByLine(String filename) {
         try {
             Controller control = new Controller(length);
