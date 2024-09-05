@@ -129,7 +129,7 @@ public class Graph {
                     }
                     removeEdge(i, alist[i].get(1).index);
                 }
-                alist[i].remove(0);
+                alist[i] = null;
                 parents[i] = -1;
                 break;
             }

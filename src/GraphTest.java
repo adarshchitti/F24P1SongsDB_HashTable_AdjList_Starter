@@ -81,7 +81,7 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addEdge(0, 1);
         graph.removeRecord("A");
-        assertEquals(0, graph.alist[0].size());
+        assertNull(graph.alist[0]);
         assertEquals(-1, graph.parents[0]);
     }
 
