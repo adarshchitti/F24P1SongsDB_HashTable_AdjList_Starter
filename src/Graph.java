@@ -4,14 +4,12 @@ public class Graph {
     int totalLength;
     int[] parents;
     int[] weight;
-    int numOfConnectedRecords;
 
     public Graph(int length) {
         alist = new DLList[length];
         totalLength = length;
         parents = new int[length];
         weight = new int[length];
-        numOfConnectedRecords = 0;
         for (int i = 0; i < length; i++) {
             parents[i] = -1;
             weight[i] = 1;
@@ -63,10 +61,13 @@ public class Graph {
         for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null && alist[i].get(0).key.equals(record)) {
                 int parent = find(i);
-                weight[parent] = weight[parent] - alist[i].size() + numOfConnectedRecords;
+                weight[parent] = weight[parent] - alist[i].size();
                 for (int j = alist[i].size() - 1; j > 0; j--) {
                     if (alist[alist[i].get(1).index].size() == 2) {
                         parents[alist[i].get(1).index] = -1;
+                    }
+                    else {
+                        weight[parent]++;
                     }
                     removeEdge(i, alist[i].get(1).index);
                 }
@@ -94,7 +95,6 @@ public class Graph {
             if (weight[r2] > weight[r1]) {
                 parents[r1] = r2;
                 weight[r2] += weight[r1];
-                numOfConnectedRecords++;
             }
             else {
                 parents[r2] = r1;

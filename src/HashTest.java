@@ -28,6 +28,8 @@ public class HashTest extends TestCase {
 
         assertEquals(-1, toTest.find("bye"));
     }
+
+
     /*
      * Checks out the hashFind method
      */
@@ -37,6 +39,7 @@ public class HashTest extends TestCase {
 
         assertEquals(-1, toTest.find("bye"));
     }
+
 
     /*
      * Tests the insert method
@@ -63,24 +66,25 @@ public class HashTest extends TestCase {
         assertEquals(1, toTest.getNumTombstone());
         assertFalse(toTest.remove("hhh"));
         Record[] test = toTest.getAllRecords();
-        assertEquals(test[index].key,"TOMBSTONE");
-        assertEquals(1,toTest.getNumTombstone());
+        assertEquals(test[index].key, "TOMBSTONE");
+        assertEquals(1, toTest.getNumTombstone());
     }
+
+
     /*
      * Tests print method
      */
-    public void testPrint()
-    {
+    public void testPrint() {
         toTest.insert(rec1);
         toTest.insert(rec2);
-        
+
         String ans = toTest.print();
-        
-        String expected = "Index: 0 Data: hey\n" +
-                          "Index: 1 Data: hi\n";
-        assertEquals(expected,ans);
-        
+
+        String expected = "Index: 0 Data: hey\n" + "Index: 1 Data: hi\n";
+        assertEquals(expected, ans);
+
     }
+
 
     /**
      * Check out the sfold method

@@ -38,7 +38,7 @@ public class Controller {
         if (!fullGraph.checkEdge(src, dst)) {
             fullGraph.addEdge(src, dst);
         }
-        
+
         if (!fullGraph.checkEdge(dst, src)) {
             fullGraph.addEdge(dst, src);
         }

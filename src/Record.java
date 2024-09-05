@@ -5,6 +5,6 @@ public class Record {
     public Record(String key, int node) {
         this.key = key;
         index = node;
-    } 
+    }
 
 }
