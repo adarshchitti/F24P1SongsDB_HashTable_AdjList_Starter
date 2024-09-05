@@ -237,12 +237,18 @@ public class Graph {
      */
     @SuppressWarnings("unchecked")
     public void expandCapacity() {
-        DLList<Record>[] temp = new DLList[getTotalLength() * 2];
-        for (int i = 0; i < getTotalLength(); i++) {
-            temp[i] = getAlist()[i];
+        DLList<Record>[] temp = new DLList[totalLength * 2];
+        int[] tempParent = new int[totalLength * 2];
+        int[] tempWeight = new int[totalLength * 2];
+        for (int i = 0; i < totalLength; i++) {
+            temp[i] = alist[i];
+            tempParent[i] = parents[i];
+            tempWeight[i] = weight[i];
         }
-        setTotalLength(getTotalLength() * 2);
-        setAlist(temp);
+        totalLength = totalLength * 2;
+        parents = tempParent;
+        weight = tempWeight;
+        alist = temp;
     }
 
 
