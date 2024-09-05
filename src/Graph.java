@@ -5,6 +5,7 @@ public class Graph {
     int[] parents;
     int[] weight;
 
+    @SuppressWarnings("unchecked")
     public Graph(int length) {
         alist = new DLList[length];
         totalLength = length;

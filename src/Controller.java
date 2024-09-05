@@ -1,12 +1,12 @@
 
 public class Controller {
-    Hash songs;
-    Hash artists;
-    Graph fullGraph;
-    int index = 0;
-    int src;
-    int dst;
-    int length;
+    public Hash songs;
+    public Hash artists;
+    public Graph fullGraph;
+    private int index = 0;
+    private int src;
+    private int dst;
+    private int length;
 
     public Controller(int length) {
         songs = new Hash(length);
@@ -22,12 +22,12 @@ public class Controller {
             Record artistRecord = new Record(artist, index++);
             artists.insert(artistRecord);
             fullGraph.addRecord(artistRecord);
-            System.out.println("|" + artist + "| is added to the Artist Database");
             if(artists.getTotalSize()==(length*2))
             {
-                System.out.println("Artist hash table size doouble");
+                System.out.println("Artist hash table size doubled");
                 length = artists.getTotalSize();
             }
+            System.out.println("|" + artist + "| is added to the Artist Database");            
         }
         else {
             src = artists.find(artist);
@@ -38,12 +38,12 @@ public class Controller {
             Record songRecord = new Record(song, index++);
             songs.insert(songRecord);
             fullGraph.addRecord(songRecord);
-            System.out.println("|" + song + "| is added to the Song Database");
             if(songs.getTotalSize()==(length*2))
             {
-                System.out.println("Song hash table size doouble");
+                System.out.println("Song hash table size doubled");
                 length = songs.getTotalSize();
             }
+            System.out.println("|" + song + "| is added to the Song Database");            
         }
         else {
             dst = songs.find(song);

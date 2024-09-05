@@ -55,13 +55,13 @@ public class GraphProject {
                 switch (cmd) {
                     case "insert":
                         scancmd.useDelimiter("<SEP>");
-                        String artist = scancmd.next();
+                        String artist = scancmd.next().trim();
                         String song = scancmd.next();
                         control.insert(artist, song);
                         break;
                     case "remove":
                         type = scancmd.next();
-                        String token = scancmd.nextLine();
+                        String token = scancmd.nextLine().trim();
                         switch (type) {
                             case "artist":
                                 control.removeArtist(token);

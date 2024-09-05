@@ -72,6 +72,7 @@ public class Hash {
         }
         getAllRecords()[index].key = "TOMBSTONE";
         numTombstone++;
+        numberOfRecords--;
         return true;
 
     }
