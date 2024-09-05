@@ -5,11 +5,14 @@
  * @version 09.05.2024
  */
 public class GraphTest extends student.TestCase {
-    Graph graph;
-    Record recordA;
-    Record recordB;
-    Record recordC;
+    private Graph graph;
+    private Record recordA;
+    private Record recordB;
+    private Record recordC;
 
+    /*
+     * Sets up for the test cases
+     */
     public void setUp() {
         graph = new Graph(3);
         recordA = new Record("A", 0);
@@ -141,7 +144,8 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordA);
         assertEquals(0, graph.connectedElements());
     }
-    
+
+
     public void testExpandCapacity() {
         Record recordD = new Record("D", 3);
         graph.addRecord(recordA);
@@ -149,6 +153,6 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordC);
         graph.addRecord(recordD);
         assertEquals(6, graph.getTotalLength());
-        
+
     }
 }
