@@ -8,9 +8,9 @@
  * @version 09.05.2024
  */
 public class Controller {
-    public Hash songs;
-    public Hash artists;
-    public Graph fullGraph;
+    private Hash songs;
+    private Hash artists;
+    private Graph fullGraph;
     private int index = 0;
     private int src;
     private int dst;

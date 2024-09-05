@@ -25,8 +25,8 @@ public class GraphTest extends student.TestCase {
     public void testAddRecord() {
         graph.addRecord(recordA);
         graph.addRecord(recordB);
-        assertEquals(recordA, graph.alist[0].get(0));
-        assertEquals(recordB, graph.alist[1].get(0));
+        assertEquals(recordA, graph.getAlist()[0].get(0));
+        assertEquals(recordB, graph.getAlist()[1].get(0));
     }
 
 
@@ -81,8 +81,8 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addEdge(0, 1);
         graph.removeRecord("A");
-        assertNull(graph.alist[0]);
-        assertEquals(-1, graph.parents[0]);
+        assertNull(graph.getAlist()[0]);
+        assertEquals(-1, graph.getParents()[0]);
     }
 
 
@@ -148,7 +148,7 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addRecord(recordC);
         graph.addRecord(recordD);
-        assertEquals(6, graph.totalLength);
+        assertEquals(6, graph.getTotalLength());
         
     }
 }

@@ -51,6 +51,9 @@ public class HashTest extends TestCase {
         assertEquals(1, toTest.getNumberOfRecords());
         toTest.insert(rec2);
         assertEquals(4, toTest.getTotalSize());
+        assertTrue(toTest.find(rec2.key)!=-1);
+        assertTrue(toTest.find(rec1.key)!=-1);
+        
 
     }
 

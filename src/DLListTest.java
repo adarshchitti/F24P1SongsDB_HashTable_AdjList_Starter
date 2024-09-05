@@ -307,14 +307,14 @@ public class DLListTest extends TestCase {
         assertEquals("Item3", iter.next());
 
         assertFalse(iter.hasNext());
-        NoSuchElementException NSE = null;
+        NoSuchElementException nse = null;
         try {
             iter.next();
         }
         catch (NoSuchElementException e) {
-            NSE = e;
+            nse = e;
         }
-        assertNotNull(NSE);
+        assertNotNull(nse);
     }
 
 }

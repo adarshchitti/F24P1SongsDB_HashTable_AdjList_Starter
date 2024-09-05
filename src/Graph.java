@@ -8,12 +8,12 @@
  * @version 09.05.2024
  */
 public class Graph {
-    DLList<Record>[] alist; // Adjacency list representation
-    int totalLength; // Total number of nodes in the graph
-    int[] parents; // Array to keep track of node parents for union-find
-    int[] weight; // Array to keep track of the size of each tree in the
-                  // union-find
-    int numOfRecords;
+    private DLList<Record>[] alist; // Adjacency list representation
+    private int totalLength; // Total number of nodes in the graph
+    private int[] parents; // Array to keep track of node parents for union-find
+    private int[] weight; // Array to keep track of the size of each tree in the
+    // union-find
+    private int numOfRecords;
 
     /**
      * Constructs a Graph with a specified length.
@@ -23,13 +23,13 @@ public class Graph {
      */
     @SuppressWarnings("unchecked")
     public Graph(int length) {
-        alist = new DLList[length];
-        totalLength = length;
-        parents = new int[length];
+        setAlist(new DLList[length]);
+        setTotalLength(length);
+        setParents(new int[length]);
         weight = new int[length];
         numOfRecords = 0;
         for (int i = 0; i < length; i++) {
-            parents[i] = -1; // Initialize as root
+            getParents()[i] = -1; // Initialize as root
             weight[i] = 1; // Initialize each node with weight 1
         }
     }
@@ -42,12 +42,12 @@ public class Graph {
      *            the record to be added
      */
     public void addRecord(Record record) {
-        if (numOfRecords == totalLength)
+        if (numOfRecords == getTotalLength())
             expandCapacity();
-        for (int i = 0; i < totalLength; i++) {
-            if (alist[i] == null) {
-                alist[record.index] = new DLList<>();
-                alist[record.index].add(record);
+        for (int i = 0; i < getTotalLength(); i++) {
+            if (getAlist()[i] == null) {
+                getAlist()[record.index] = new DLList<>();
+                getAlist()[record.index].add(record);
                 numOfRecords++;
                 break;
             }
@@ -65,7 +65,7 @@ public class Graph {
      *            the destination node index
      */
     public void addEdge(int src, int dst) {
-        alist[src].add(alist[dst].get(0));
+        getAlist()[src].add(getAlist()[dst].get(0));
         union(src, dst);
     }
 
@@ -80,8 +80,8 @@ public class Graph {
      * @return true if an edge exists between src and dst, false otherwise
      */
     public boolean checkEdge(int src, int dst) {
-        for (Record node : alist[src]) {
-            if (node.equals(alist[dst].get(0))) {
+        for (Record node : getAlist()[src]) {
+            if (node.equals(getAlist()[dst].get(0))) {
                 return true;
             }
         }
@@ -93,9 +93,9 @@ public class Graph {
      * Prints the adjacency list representation of the graph.
      */
     public void print() {
-        for (int i = 0; i < totalLength; i++) {
-            if (alist[i] != null) {
-                for (Record node : alist[i]) {
+        for (int i = 0; i < getTotalLength(); i++) {
+            if (getAlist()[i] != null) {
+                for (Record node : getAlist()[i]) {
                     System.out.print(node.key + " -> ");
                 }
                 System.out.println();
@@ -113,8 +113,8 @@ public class Graph {
      *            the destination node index
      */
     public void removeEdge(int src, int dst) {
-        alist[src].remove(alist[dst].get(0));
-        alist[dst].remove(alist[src].get(0));
+        getAlist()[src].remove(getAlist()[dst].get(0));
+        getAlist()[dst].remove(getAlist()[src].get(0));
     }
 
 
@@ -126,22 +126,23 @@ public class Graph {
      *            the key of the record to be removed
      */
     public void removeRecord(String record) {
-        for (int i = 0; i < totalLength; i++) {
-            if (alist[i] != null && alist[i].get(0).key.equals(record)) {
+        for (int i = 0; i < getTotalLength(); i++) {
+            if (getAlist()[i] != null && getAlist()[i].get(0).key.equals(
+                record)) {
                 int parent = find(i);
-                weight[parent] -= alist[i].size();
-                for (int j = alist[i].size() - 1; j > 0; j--) {
-                    if (alist[alist[i].get(1).index].size() == 2) {
-                        parents[alist[i].get(1).index] = -1;
+                weight[parent] -= getAlist()[i].size();
+                for (int j = getAlist()[i].size() - 1; j > 0; j--) {
+                    if (getAlist()[getAlist()[i].get(1).index].size() == 2) {
+                        getParents()[getAlist()[i].get(1).index] = -1;
                     }
                     else {
                         weight[parent]++;
                     }
-                    removeEdge(i, alist[i].get(1).index);
+                    removeEdge(i, getAlist()[i].get(1).index);
                 }
-                alist[i] = null;
+                getAlist()[i] = null;
                 numOfRecords--;
-                parents[i] = -1;
+                getParents()[i] = -1;
                 break;
             }
         }
@@ -156,11 +157,11 @@ public class Graph {
      * @return the root of the node
      */
     public int find(int a) {
-        if (parents[a] == -1) {
+        if (getParents()[a] == -1) {
             return a; // Node is its own root
         }
-        parents[a] = find(parents[a]); // Path compression
-        return parents[a];
+        getParents()[a] = find(getParents()[a]); // Path compression
+        return getParents()[a];
     }
 
 
@@ -180,11 +181,11 @@ public class Graph {
 
         if (r1 != r2) {
             if (weight[r2] > weight[r1]) {
-                parents[r1] = r2;
+                getParents()[r1] = r2;
                 weight[r2] += weight[r1];
             }
             else {
-                parents[r2] = r1;
+                getParents()[r2] = r1;
                 weight[r1] += weight[r2];
             }
         }
@@ -217,10 +218,10 @@ public class Graph {
         int temp;
         int curr = -1;
         int components = 0;
-        for (int i = 0; i < parents.length; i++) {
-            if (alist[i] != null) {
+        for (int i = 0; i < getParents().length; i++) {
+            if (getAlist()[i] != null) {
                 temp = find(i);
-                if (curr != temp && parents[i] != -1) {
+                if (curr != temp && getParents()[i] != -1) {
                     curr = temp;
                     components++;
                 }
@@ -229,16 +230,81 @@ public class Graph {
         return components;
     }
 
+
     /**
-     * Expands the capacity of the adjacent list to double if the previous list is full
+     * Expands the capacity of the adjacent list to double if the previous list
+     * is full
      */
     @SuppressWarnings("unchecked")
     public void expandCapacity() {
-        DLList<Record>[] temp = new DLList[totalLength * 2];
-        for (int i = 0; i < totalLength; i++) {
-            temp[i] = alist[i];
+        DLList<Record>[] temp = new DLList[getTotalLength() * 2];
+        for (int i = 0; i < getTotalLength(); i++) {
+            temp[i] = getAlist()[i];
         }
-        totalLength = totalLength * 2;
-        alist = temp;
+        setTotalLength(getTotalLength() * 2);
+        setAlist(temp);
+    }
+
+
+    /**
+     * Gets the array of doubly linked lists (DLList) of Records.
+     * 
+     * @return an array of DLLists containing Records
+     */
+    public DLList<Record>[] getAlist() {
+        return alist;
+    }
+
+
+    /**
+     * Sets the array of doubly linked lists (DLList) of Records.
+     * 
+     * @param alist
+     *            the array of DLLists containing Records to set
+     */
+    public void setAlist(DLList<Record>[] alist) {
+        this.alist = alist;
+    }
+
+
+    /**
+     * Gets the array of parent indices.
+     * 
+     * @return an array representing the parent indices
+     */
+    public int[] getParents() {
+        return parents;
+    }
+
+
+    /**
+     * Sets the array of parent indices.
+     * 
+     * @param parents
+     *            the array representing the parent indices to set
+     */
+    public void setParents(int[] parents) {
+        this.parents = parents;
+    }
+
+
+    /**
+     * Gets the total length of the structure.
+     * 
+     * @return the total length as an integer
+     */
+    public int getTotalLength() {
+        return totalLength;
+    }
+
+
+    /**
+     * Sets the total length of the structure.
+     * 
+     * @param totalLength
+     *            the total length to set
+     */
+    public void setTotalLength(int totalLength) {
+        this.totalLength = totalLength;
     }
 }
