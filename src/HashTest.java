@@ -19,7 +19,7 @@ public class HashTest extends TestCase {
     }
 
 
-    /*
+    /**
      * Checks out the Find method
      */
     public void testFind() {
@@ -30,7 +30,7 @@ public class HashTest extends TestCase {
     }
 
 
-    /*
+    /**
      * Checks out the hashFind method
      */
     public void testHashFind() {
@@ -41,7 +41,7 @@ public class HashTest extends TestCase {
     }
 
 
-    /*
+    /**
      * Tests the insert method
      */
     public void testInsert() {
@@ -51,14 +51,13 @@ public class HashTest extends TestCase {
         assertEquals(1, toTest.getNumberOfRecords());
         toTest.insert(rec2);
         assertEquals(4, toTest.getTotalSize());
-        assertTrue(toTest.find(rec2.key)!=-1);
-        assertTrue(toTest.find(rec1.key)!=-1);
-        
+        assertTrue(toTest.find(rec2.key) != -1);
+        assertTrue(toTest.find(rec1.key) != -1);
 
     }
 
 
-    /*
+    /**
      * Tests remove method
      */
     public void testRemove() {
@@ -74,7 +73,7 @@ public class HashTest extends TestCase {
     }
 
 
-    /*
+    /**
      * Tests print method
      */
     public void testPrint() {

@@ -10,7 +10,7 @@ public class GraphTest extends student.TestCase {
     private Record recordB;
     private Record recordC;
 
-    /*
+    /**
      * Sets up for the test cases
      */
     public void setUp() {
