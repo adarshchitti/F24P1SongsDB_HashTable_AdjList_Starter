@@ -64,11 +64,10 @@ public class GraphProject {
                         String token = scancmd.nextLine();
                         switch (type) {
                             case "artist":
-                                System.out.println("Artist Delete: " + token);
-                                control.remove(token);
+                                control.removeArtist(token);
                                 break;
                             case "song":
-                                System.out.println("Song Delete: " + token);
+                                control.removeSong(token);
                                 break;
                             default:
                                 System.out.println("Error bad remove type "
@@ -80,13 +79,13 @@ public class GraphProject {
                         type = scancmd.next();
                         switch (type) {
                             case "artist":
-                                System.out.println("Print artist mode");
+                                control.printArtist();
                                 break;
                             case "song":
-                                System.out.println("Print song mode");
+                                control.printSong();
                                 break;
                             case "graph":
-                                control.print();
+                                control.printGraph();
                                 break;
                             default:
                                 System.out.println("Error bad print type"

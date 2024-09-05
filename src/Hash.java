@@ -160,8 +160,7 @@ public class Hash {
         String result = "";
         for (int i = 0; i < totalSize; i++) {
             if (getAllRecords()[i] != null) {
-                result = result + "Index: " + i + " Data: "
-                    + getAllRecords()[i].key + "\n";
+                result = result +i+ ":" +" |" + getAllRecords()[i].key +"|\n";
             }
         }
 

@@ -57,6 +57,8 @@ public class GraphProjectTest extends TestCase {
 
         // Invoke main method of our Graph Project
         GraphProject.main(args);
+        GraphProject gp = new GraphProject();
+        gp.beginParsingByLine("solutionTestData/P1_sampleInput.txt");
 
         // Actual output from your System console
         String actualOutput = systemOut().getHistory();
@@ -72,9 +74,10 @@ public class GraphProjectTest extends TestCase {
 
     }
 
-
+    /*
     public void testRead() {
         GraphProject gp = new GraphProject();
         gp.beginParsingByLine("solutionTestData/input");
     }
+    */
 }

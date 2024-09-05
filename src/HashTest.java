@@ -80,7 +80,7 @@ public class HashTest extends TestCase {
 
         String ans = toTest.print();
 
-        String expected = "Index: 0 Data: hey\n" + "Index: 1 Data: hi\n";
+        String expected = "0: |hey|\n" + "1: |hi|\n";
         assertEquals(expected, ans);
 
     }
