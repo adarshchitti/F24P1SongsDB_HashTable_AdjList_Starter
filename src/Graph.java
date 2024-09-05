@@ -113,6 +113,10 @@ public class Graph {
             }
         }
 
+        if(max == 1)
+        {
+            return 0;
+        }
         return max;
     }
 
