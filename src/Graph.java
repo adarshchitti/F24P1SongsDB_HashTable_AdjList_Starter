@@ -13,6 +13,7 @@ public class Graph {
     int[] parents; // Array to keep track of node parents for union-find
     int[] weight; // Array to keep track of the size of each tree in the
                   // union-find
+    int numOfRecords;
 
     /**
      * Constructs a Graph with a specified length.
@@ -26,6 +27,7 @@ public class Graph {
         totalLength = length;
         parents = new int[length];
         weight = new int[length];
+        numOfRecords = 0;
         for (int i = 0; i < length; i++) {
             parents[i] = -1; // Initialize as root
             weight[i] = 1; // Initialize each node with weight 1
@@ -40,8 +42,16 @@ public class Graph {
      *            the record to be added
      */
     public void addRecord(Record record) {
-        alist[record.index] = new DLList<>();
-        alist[record.index].add(record);
+        if (numOfRecords == totalLength)
+            expandCapacity();
+        for (int i = 0; i < totalLength; i++) {
+            if (alist[i] == null) {
+                alist[record.index] = new DLList<>();
+                alist[record.index].add(record);
+                numOfRecords++;
+                break;
+            }
+        }
     }
 
 
@@ -130,6 +140,7 @@ public class Graph {
                     removeEdge(i, alist[i].get(1).index);
                 }
                 alist[i] = null;
+                numOfRecords--;
                 parents[i] = -1;
                 break;
             }
@@ -216,5 +227,18 @@ public class Graph {
             }
         }
         return components;
+    }
+
+    /**
+     * Expands the capacity of the adjacent list to double if the previous list is full
+     */
+    @SuppressWarnings("unchecked")
+    public void expandCapacity() {
+        DLList<Record>[] temp = new DLList[totalLength * 2];
+        for (int i = 0; i < totalLength; i++) {
+            temp[i] = alist[i];
+        }
+        totalLength = totalLength * 2;
+        alist = temp;
     }
 }

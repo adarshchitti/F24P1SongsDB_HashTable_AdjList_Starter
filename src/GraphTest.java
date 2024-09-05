@@ -141,4 +141,14 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordA);
         assertEquals(0, graph.connectedElements());
     }
+    
+    public void testExpandCapacity() {
+        Record recordD = new Record("D", 3);
+        graph.addRecord(recordA);
+        graph.addRecord(recordB);
+        graph.addRecord(recordC);
+        graph.addRecord(recordD);
+        assertEquals(6, graph.totalLength);
+        
+    }
 }
