@@ -84,6 +84,10 @@ public class HashTest extends TestCase {
 
         String expected = "0: |hey|\n" + "1: |hi|\n";
         assertEquals(expected, ans);
+        toTest.remove(rec1.key);
+        expected = "0: TOMBSTONE\n" + "1: |hi|\n";
+        ans = toTest.print();
+        assertEquals(expected, ans);
 
     }
 
