@@ -157,4 +157,49 @@ public class HashTestTwo extends student.TestCase {
         assertNotSame("Record 2 should not overwrite Record 1.", record2,
             hashTable.getAllRecords()[expectedIndex]);
     }
+
+
+    /**
+     * Tests the print() method of the Hash class.
+     * It ensures that all possible scenarios in the print method are correctly
+     * handled.
+     */
+    public void testPrint() {
+        // Initialize the hash table with size 5
+        Hash hashTable = new Hash(5);
+        String expected;
+
+        // 1. Case: Empty hash table
+        expected = ""; // No records should be printed
+        assertEquals("Empty table should return an empty string.", expected,
+            hashTable.print());
+
+        // Insert records
+        Record record1 = new Record("record1", 1);
+        Record record2 = new Record("record2", 2);
+        Record record3 = new Record("record3", 3);
+
+        hashTable.insert(record1); // Hash it to position 0
+        hashTable.insert(record2); // Hash it to position 1
+        hashTable.insert(record3); // Hash it to position 2
+
+        // 2. Case: Valid records
+        expected = "0: |record3|\n4: |record2|\n8: |record1|\n";
+        assertEquals("Should print valid records.", expected, hashTable
+            .print());
+
+        // 3. Case: Record marked as tombstone
+        hashTable.remove("record2"); // Mark as tombstone
+        expected = "0: |record3|\n4: TOMBSTONE\n8: |record1|\n";
+        assertEquals("Should print tombstone at position 1.", expected,
+            hashTable.print());
+
+        // 4. Case: Mix of records, tombstones, and nulls
+        // Now the table has a tombstone at position 1 and a valid record at 0
+        hashTable.remove("record1"); // Mark position 0 as tombstone as well
+        expected = "0: |record3|\n4: TOMBSTONE\n8: TOMBSTONE\n";
+        assertEquals("Both positions should print tombstones.", expected,
+            hashTable.print());
+    }
+
 }
