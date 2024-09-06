@@ -1,8 +1,10 @@
 import student.TestCase;
 
 /**
- * @author <Put something here>
- * @version <Put something here>
+ * Test class for Hash
+ * 
+ * @author Brantson
+ * @version 09.05.2024
  */
 public class HashTest extends TestCase {
     private Record rec1;
@@ -20,24 +22,24 @@ public class HashTest extends TestCase {
 
 
     /**
-     * Checks out the Find method
+     * Checks out the hashFind method
      */
-    public void testFind() {
+    public void testhashFind() {
         toTest.insert(rec1);
-        assertTrue(toTest.find("hey") != -1);
+        assertTrue(toTest.hashFind("hey") != -1);
 
-        assertEquals(-1, toTest.find("bye"));
+        assertEquals(-1, toTest.hashFind("bye"));
     }
 
 
     /**
-     * Checks out the hashFind method
+     * Checks out the hashhashFind method
      */
-    public void testHashFind() {
+    public void testHashhashFind() {
         toTest.insert(rec1);
-        assertTrue(toTest.find("hey") != -1);
+        assertTrue(toTest.hashFind("hey") != -1);
 
-        assertEquals(-1, toTest.find("bye"));
+        assertEquals(-1, toTest.hashFind("bye"));
     }
 
 
@@ -51,8 +53,8 @@ public class HashTest extends TestCase {
         assertEquals(1, toTest.getNumberOfRecords());
         toTest.insert(rec2);
         assertEquals(4, toTest.getTotalSize());
-        assertTrue(toTest.find(rec2.key) != -1);
-        assertTrue(toTest.find(rec1.key) != -1);
+        assertTrue(toTest.hashFind(rec2.key) != -1);
+        assertTrue(toTest.hashFind(rec1.key) != -1);
 
     }
 

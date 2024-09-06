@@ -3,9 +3,9 @@
  * for collision resolution.
  * It automatically expands its capacity when more than 50% full.
  * 
- * @author: Brantson and Adarsh
+ * @author: Brantson
  * 
- * @version 1.0
+ * @version 09.05.2024
  */
 public class Hash {
 
@@ -102,9 +102,7 @@ public class Hash {
      *            the record to be inserted
      */
     public void insert(Record record) {
-        if (numberOfRecords >= (totalSize / 2)) {
-            expandCapacity();
-        }
+
         if (hashFind(record.key) == -1) {
             int index = h(record.key, totalSize);
             int count = 0;
@@ -114,6 +112,9 @@ public class Hash {
             }
             allRecords[index] = record;
             numberOfRecords++;
+        }
+        if (numberOfRecords >= (totalSize / 2)) {
+            expandCapacity();
         }
     }
 
@@ -135,7 +136,7 @@ public class Hash {
         allRecords = new Record[totalSize];
         numberOfRecords = 0;
         for (int i = 0; i < temp.length; i++) {
-            if (temp[i] != null) {
+            if (temp[i] != null && !temp[i].key.equals("TOMBSTONE")) {
                 int index = h(temp[i].key, totalSize);
                 int count = 0;
                 while (allRecords[index] != null) {
@@ -146,6 +147,7 @@ public class Hash {
                 numberOfRecords++;
             }
         }
+        numTombstone = 0;
     }
 
 
@@ -192,15 +194,14 @@ public class Hash {
         String result = "";
         for (int i = 0; i < totalSize; i++) {
             if (allRecords[i] != null) {
-                if(allRecords[i].key.equals("TOMBSTONE"))
-                {
-                    result = result + i + ": "  + allRecords[i].key + "\n";
+                if (allRecords[i].key.equals("TOMBSTONE")) {
+                    result = result + i + ": " + allRecords[i].key + "\n";
                 }
-                else
-                {
-                    result = result + i + ":" + " |" + allRecords[i].key + "|\n";
+                else {
+                    result = result + i + ":" + " |" + allRecords[i].key
+                        + "|\n";
                 }
-                
+
             }
         }
 
