@@ -21,6 +21,7 @@ public class HashTest extends student.TestCase {
         hashTable = new Hash(10);
     }
 
+
     /**
      * Tests Find method
      */
@@ -37,6 +38,8 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("hey5", 5));
         assertEquals(5, hashTable.find("hey5"));
     }
+
+
     /**
      * Tests insertion of a record into an empty hash table.
      * Verifies that the record is inserted at the correct index.
@@ -84,13 +87,34 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("key3", 3));
         hashTable.insert(new Record("key4", 4));
         hashTable.insert(new Record("key5", 5));
-
-        assertTrue(hashTable.getTotalSize() > 10);
+        hashTable.remove("key2");
+        hashTable.insert(new Record("key6", 6));
+        hashTable.insert(new Record("key7", 7));
+        assertEquals(hashTable.getTotalSize(), 20);
         assertEquals(Hash.h("key1", 20), hashTable.hashFind("key1"));
-        assertEquals(Hash.h("key2", 20), hashTable.hashFind("key2"));
         assertEquals(Hash.h("key3", 20), hashTable.hashFind("key3"));
         assertEquals(Hash.h("key4", 20), hashTable.hashFind("key4"));
         assertEquals(Hash.h("key5", 20), hashTable.hashFind("key5"));
+        hashTable.insert(new Record("key8", 8));
+        int eInd1 = Hash.h("key8", 20);
+        System.out.println(eInd1);
+        int count = 0;
+        while (hashTable.hashFind("key8") != eInd1) {
+            count++;
+            eInd1 = (eInd1 + count * count) % 20;
+        }
+        assertEquals(eInd1, hashTable.hashFind("key8"));
+
+        hashTable.insert(new Record("key9", 9));
+
+        int eInd = Hash.h("key9", 20);
+        System.out.println(eInd);
+        int count2 = 0;
+        while (hashTable.hashFind("key9") != eInd) {
+            count2++;
+            eInd = (eInd + count2 * count2) % 20;
+        }
+        assertEquals(eInd, hashTable.hashFind("key9"));
     }
 
 
@@ -119,29 +143,29 @@ public class HashTest extends student.TestCase {
      */
     public void testPrint() {
 
-        Hash hashTable = new Hash(5);
+        Hash toTest = new Hash(5);
         String expected;
 
         expected = "";
-        assertEquals(expected, hashTable.print());
+        assertEquals(expected, toTest.print());
 
         Record record1 = new Record("record1", 1);
         Record record2 = new Record("record2", 2);
         Record record3 = new Record("record3", 3);
 
-        hashTable.insert(record1);
-        hashTable.insert(record2);
-        hashTable.insert(record3);
+        toTest.insert(record1);
+        toTest.insert(record2);
+        toTest.insert(record3);
 
         expected = "0: |record3|\n4: |record2|\n8: |record1|\n";
-        assertEquals(expected, hashTable.print());
+        assertEquals(expected, toTest.print());
 
-        hashTable.remove("record2");
+        toTest.remove("record2");
         expected = "0: |record3|\n4: TOMBSTONE\n8: |record1|\n";
-        assertEquals(expected, hashTable.print());
-        hashTable.remove("record1");
+        assertEquals(expected, toTest.print());
+        toTest.remove("record1");
         expected = "0: |record3|\n4: TOMBSTONE\n8: TOMBSTONE\n";
-        assertEquals(expected, hashTable.print());
+        assertEquals(expected, toTest.print());
     }
 
 }

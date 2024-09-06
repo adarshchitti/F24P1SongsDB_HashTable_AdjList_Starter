@@ -146,6 +146,9 @@ public class GraphTest extends student.TestCase {
     }
 
 
+    /**
+     * Tests graphs expand capacity.
+     */
     public void testExpandCapacity() {
         Record recordD = new Record("D", 3);
         graph.addRecord(recordA);

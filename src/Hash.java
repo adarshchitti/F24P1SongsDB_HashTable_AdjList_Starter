@@ -103,6 +103,9 @@ public class Hash {
      */
     public void insert(Record record) {
 
+        if (numberOfRecords >= (totalSize / 2)) {
+            expandCapacity();
+        }
         if (hashFind(record.key) == -1) {
             int index = h(record.key, totalSize);
             int count = 0;
@@ -113,9 +116,6 @@ public class Hash {
             allRecords[index] = record;
             numberOfRecords++;
         }
-        if (numberOfRecords >= (totalSize / 2)) {
-            expandCapacity();
-        }
     }
 
 
@@ -125,16 +125,11 @@ public class Hash {
      * This method is called when the table becomes more than 50% full.
      */
     private void expandCapacity() {
-        Record[] temp = new Record[allRecords.length];
-        for (int i = 0; i < temp.length; i++) {
-            if (allRecords[i] != null) {
-                Record rec = new Record(allRecords[i].key, allRecords[i].index);
-                temp[i] = rec;
-            }
-        }
+        Record[] temp = allRecords;
         totalSize = totalSize * 2;
         allRecords = new Record[totalSize];
         numberOfRecords = 0;
+
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null && !temp[i].key.equals("TOMBSTONE")) {
                 int index = h(temp[i].key, totalSize);
@@ -143,10 +138,12 @@ public class Hash {
                     count++;
                     index = (index + count * count) % totalSize;
                 }
+
                 allRecords[index] = temp[i];
                 numberOfRecords++;
             }
         }
+
         numTombstone = 0;
     }
 
