@@ -39,9 +39,9 @@ public class Hash {
     public int find(String value) {
         int index = h(value, getTotalSize());
         int i = 0;
-        while (getAllRecords()[index] != null) {
-            if (getAllRecords()[index].key.equals(value)) {
-                return getAllRecords()[index].index;
+        while (allRecords[index] != null) {
+            if (allRecords[index].key.equals(value)) {
+                return allRecords[index].index;
             }
             i++;
             index = (index + (i * i)) % getTotalSize();
