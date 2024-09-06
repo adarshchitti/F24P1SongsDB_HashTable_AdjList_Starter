@@ -10,7 +10,7 @@
  * @author Brantson
  * @version 09.05.2024
  */
-public class HashTestTwo extends student.TestCase {
+public class HashTest extends student.TestCase {
 
     private Hash hashTable;
 
