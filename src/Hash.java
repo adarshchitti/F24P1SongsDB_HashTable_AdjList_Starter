@@ -3,7 +3,7 @@
  * for collision resolution.
  * It automatically expands its capacity when more than 50% full.
  * 
- * @author: Brantson
+ * @author Brantson and Adarsh
  * 
  * @version 09.05.2024
  */

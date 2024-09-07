@@ -42,10 +42,12 @@ public class Graph {
      *            the record to be added
      */
     public void addRecord(Record record) {
-        if (numOfRecords == getTotalLength())
+        if (record.index == getTotalLength())
             expandCapacity();
-        for (int i = 0; i < getTotalLength(); i++) {
-            if (getAlist()[i] == null) {
+        for (int i = 0; i < getTotalLength(); i++) 
+        {
+            if (getAlist()[i] == null) 
+            {
                 getAlist()[record.index] = new DLList<>();
                 getAlist()[record.index].add(record);
                 numOfRecords++;
