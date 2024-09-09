@@ -38,13 +38,14 @@ public class Hash {
      */
     public int find(String value) {
         int index = h(value, getTotalSize());
+        int hVal = h(value, getTotalSize());
         int i = 0;
         while (allRecords[index] != null) {
             if (allRecords[index].key.equals(value)) {
                 return allRecords[index].index;
             }
             i++;
-            index = (index + (i * i)) % getTotalSize();
+            index = (hVal + (i * i)) % getTotalSize();
         }
         return -1;
     }
@@ -61,13 +62,14 @@ public class Hash {
      */
     public int hashFind(String value) {
         int index = h(value, getTotalSize());
+        int hVal = h(value, getTotalSize());
         int i = 0;
-        while (getAllRecords()[index] != null) {
-            if (getAllRecords()[index].key.equals(value)) {
+        while (allRecords[index] != null) {
+            if (allRecords[index].key.equals(value)) {
                 return index;
             }
             i++;
-            index = (index + (i * i)) % getTotalSize();
+            index = (hVal + (i * i)) % totalSize;
         }
         return -1;
     }
@@ -86,7 +88,7 @@ public class Hash {
         if (index == -1) {
             return false;
         }
-        getAllRecords()[index].key = "TOMBSTONE";
+        allRecords[index].key = "TOMBSTONE";
         numTombstone++;
         numberOfRecords--;
         return true;
@@ -108,10 +110,15 @@ public class Hash {
         }
         if (hashFind(record.key) == -1) {
             int index = h(record.key, totalSize);
+            int hVal = h(record.key, totalSize);
             int count = 0;
             while (allRecords[index] != null) {
+                if(allRecords[index].key.equals("TOMBSTONE"))
+                {
+                    break;
+                }
                 count++;
-                index = (index + count * count) % totalSize;
+                index = (hVal + count * count) % totalSize;
             }
             allRecords[index] = record;
             numberOfRecords++;
@@ -133,10 +140,11 @@ public class Hash {
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null && !temp[i].key.equals("TOMBSTONE")) {
                 int index = h(temp[i].key, totalSize);
+                int hVal = h(temp[i].key, totalSize);
                 int count = 0;
                 while (allRecords[index] != null) {
                     count++;
-                    index = (index + count * count) % totalSize;
+                    index = (hVal + count * count) % totalSize;
                 }
 
                 allRecords[index] = temp[i];
