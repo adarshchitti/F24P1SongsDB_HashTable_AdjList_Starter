@@ -113,8 +113,7 @@ public class Hash {
             int hVal = h(record.key, totalSize);
             int count = 0;
             while (allRecords[index] != null) {
-                if(allRecords[index].key.equals("TOMBSTONE"))
-                {
+                if (allRecords[index].key.equals("TOMBSTONE")) {
                     break;
                 }
                 count++;

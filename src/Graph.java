@@ -13,6 +13,7 @@ public class Graph {
     private int[] parents; // Array to keep track of node parents for union-find
     private int[] weight; // Array to keep track of the size of each tree in the
     private int numOfRecords;
+
     /**
      * Constructs a Graph with a specified length.
      *
@@ -191,7 +192,7 @@ public class Graph {
      *         components are size 1
      */
     public int connectedElements() {
-        if(numOfRecords == 0)
+        if (numOfRecords == 0)
             return 0;
         int max = weight[0];
         for (int i = 1; i < weight.length; i++) {
@@ -221,6 +222,7 @@ public class Graph {
         return components;
     }
 
+
     /**
      * Takes the graph and unionizes connected components
      */
@@ -233,6 +235,7 @@ public class Graph {
             }
         }
     }
+
 
     /**
      * Expands the capacity of the adjacent list to double if the previous list
@@ -257,9 +260,11 @@ public class Graph {
         weight = tempWeight;
         alist = temp;
     }
-    
+
+
     /**
      * Finds the next null space within adjacent list
+     * 
      * @return next null index
      */
     public int findNextNull() {
