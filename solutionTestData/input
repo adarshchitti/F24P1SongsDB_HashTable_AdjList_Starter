@@ -1,22 +1,19 @@
-insert Bessie Smith<SEP>Nobody Knows You When You're Down and Out
-insert Robert Johnson<SEP>Cross Road Blues
-insert Muddy Waters<SEP>Mannish Boy
-insert Howlin' Wolf<SEP>Smokestack Lightnin'
-insert Lead Belly<SEP>Goodnight Irene
-insert Son House<SEP>Death Letter Blues
-insert T-Bone Walker<SEP>Call It Stormy Monday
-insert John Lee Hooker<SEP>Boom Boom
-insert Tim Wilson<SEP>Garth Brooks Ruined My Life
-insert Big Mama Thornton<SEP>Hound Dog
-insert Elmore James<SEP>Dust My Broom
+remove song When Summer's Through
+print song
 print artist
-insert Lightnin' Hopkins<SEP>Mojo Hand
-insert Etta James<SEP>At Last
-insert Willie Dixon<SEP>Back Door Man
-insert Charley Patton<SEP>High Water Everywhere
-insert Big Joe Turner<SEP>Shake, Rattle and Roll
-insert Sonny Boy Williamson II<SEP>Don't Start Me to Talkin'
-insert B.B. King<SEP>The Thrill Is Gone
-insert Bo Diddley<SEP>Who Do You Love?
-insert Otis Rush<SEP>I Can't Quit You Baby
+print graph
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Blind Lemon Jefferson<SEP>Long   Lonesome Blues
+insert Blind Lemon Jefferson<SEP>long Lonesome Blues
+insert Ma Rainey<SEP>Ma Rainey's Black Bottom
+insert Ma Rainey<SEP>Long Lonesome Blues
+insert Ma Rainey<SEP>Mississippi Boweavil Blues
+insert Ma Rainey<SEP>Fixin' To Die Blues
 print artist
+print song
+print graph
+remove song Sleepy
+remove artist ma rainey
+remove artist Ma Rainey
+print graph

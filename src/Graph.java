@@ -12,9 +12,6 @@ public class Graph {
     private int totalLength; // Total number of nodes in the graph
     private int[] parents; // Array to keep track of node parents for union-find
     private int[] weight; // Array to keep track of the size of each tree in the
-    // union-find
-    private int numOfRecords;
-
     /**
      * Constructs a Graph with a specified length.
      *
@@ -27,7 +24,6 @@ public class Graph {
         setTotalLength(length);
         setParents(new int[length]);
         weight = new int[length];
-        numOfRecords = 0;
         for (int i = 0; i < length; i++) {
             getParents()[i] = -1; // Initialize as root
             weight[i] = 1; // Initialize each node with weight 1
@@ -50,7 +46,6 @@ public class Graph {
             {
                 getAlist()[record.index] = new DLList<>();
                 getAlist()[record.index].add(record);
-                numOfRecords++;
                 break;
             }
         }
@@ -68,7 +63,6 @@ public class Graph {
      */
     public void addEdge(int src, int dst) {
         getAlist()[src].add(getAlist()[dst].get(0));
-        union(src, dst);
     }
 
 
@@ -143,7 +137,6 @@ public class Graph {
                     removeEdge(i, getAlist()[i].get(1).index);
                 }
                 getAlist()[i] = null;
-                numOfRecords--;
                 getParents()[i] = -1;
                 break;
             }
@@ -217,6 +210,7 @@ public class Graph {
      * @return the number of connected components
      */
     public int connectedComponents() {
+        unionGraph();
         int temp;
         int curr = -1;
         int components = 0;
@@ -232,6 +226,18 @@ public class Graph {
         return components;
     }
 
+    /**
+     * Takes the graph and unionizes connected components
+     */
+    public void unionGraph() {
+        for (int i = 0; i < totalLength; i++) {
+            if (alist[i] != null) {
+                for (int j = 1; j < alist[i].size(); j++) {
+                    union(alist[i].get(0).index, alist[i].get(j).index);
+                }
+            }
+        }
+    }
 
     /**
      * Expands the capacity of the adjacent list to double if the previous list
