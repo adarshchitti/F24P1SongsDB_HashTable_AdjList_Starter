@@ -12,6 +12,7 @@ public class Graph {
     private int totalLength; // Total number of nodes in the graph
     private int[] parents; // Array to keep track of node parents for union-find
     private int[] weight; // Array to keep track of the size of each tree in the
+    private int numOfRecords;
     /**
      * Constructs a Graph with a specified length.
      *
@@ -23,6 +24,7 @@ public class Graph {
         setAlist(new DLList[length]);
         setTotalLength(length);
         setParents(new int[length]);
+        numOfRecords = 0;
         weight = new int[length];
         for (int i = 0; i < length; i++) {
             getParents()[i] = -1; // Initialize as root
@@ -42,6 +44,7 @@ public class Graph {
             expandCapacity();
         getAlist()[record.index] = new DLList<>();
         getAlist()[record.index].add(record);
+        numOfRecords++;
     }
 
 
@@ -131,6 +134,7 @@ public class Graph {
                 }
                 getAlist()[i] = null;
                 getParents()[i] = -1;
+                numOfRecords--;
                 break;
             }
         }
@@ -187,13 +191,15 @@ public class Graph {
      *         components are size 1
      */
     public int connectedElements() {
+        if(numOfRecords == 0)
+            return 0;
         int max = weight[0];
         for (int i = 1; i < weight.length; i++) {
             if (weight[i] > max) {
                 max = weight[i];
             }
         }
-        return max == 1 ? 0 : max;
+        return max;
     }
 
 

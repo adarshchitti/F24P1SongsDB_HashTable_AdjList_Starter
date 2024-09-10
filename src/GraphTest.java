@@ -142,7 +142,7 @@ public class GraphTest extends student.TestCase {
 
         // Single node without connections
         graph.addRecord(recordA);
-        assertEquals(0, graph.connectedElements());
+        assertEquals(1, graph.connectedElements());
     }
 
 
