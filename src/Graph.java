@@ -43,8 +43,8 @@ public class Graph {
     public void addRecord(Record record) {
         if (findNextNull() == totalLength)
             expandCapacity();
-        getAlist()[record.index] = new DLList<>();
-        getAlist()[record.index].add(record);
+        alist[record.index] = new DLList<>();
+        alist[record.index].add(record);
         numOfRecords++;
     }
 
@@ -59,7 +59,7 @@ public class Graph {
      *            the destination node index
      */
     public void addEdge(int src, int dst) {
-        getAlist()[src].add(getAlist()[dst].get(0));
+        alist[src].add(alist[dst].get(0));
     }
 
 
@@ -73,8 +73,8 @@ public class Graph {
      * @return true if an edge exists between src and dst, false otherwise
      */
     public boolean checkEdge(int src, int dst) {
-        for (Record node : getAlist()[src]) {
-            if (node.equals(getAlist()[dst].get(0))) {
+        for (Record node : alist[src]) {
+            if (node.equals(alist[dst].get(0))) {
                 return true;
             }
         }
@@ -87,8 +87,8 @@ public class Graph {
      */
     public void print() {
         for (int i = 0; i < getTotalLength(); i++) {
-            if (getAlist()[i] != null) {
-                for (Record node : getAlist()[i]) {
+            if (alist[i] != null) {
+                for (Record node : alist[i]) {
                     System.out.print(node.key + " -> ");
                 }
                 System.out.println();
@@ -106,8 +106,8 @@ public class Graph {
      *            the destination node index
      */
     public void removeEdge(int src, int dst) {
-        getAlist()[src].remove(getAlist()[dst].get(0));
-        getAlist()[dst].remove(getAlist()[src].get(0));
+        alist[src].remove(alist[dst].get(0));
+        alist[dst].remove(alist[src].get(0));
     }
 
 
@@ -120,21 +120,16 @@ public class Graph {
      */
     public void removeRecord(String record) {
         for (int i = 0; i < getTotalLength(); i++) {
-            if (getAlist()[i] != null && getAlist()[i].get(0).key.equals(
+            if (alist[i] != null && alist[i].get(0).key.equals(
                 record)) {
-                int parent = find(i);
-                weight[parent] -= getAlist()[i].size();
-                for (int j = getAlist()[i].size() - 1; j > 0; j--) {
-                    if (getAlist()[getAlist()[i].get(1).index].size() == 2) {
-                        getParents()[getAlist()[i].get(1).index] = -1;
-                    }
-                    else {
-                        weight[parent]++;
-                    }
-                    removeEdge(i, getAlist()[i].get(1).index);
+                for (int j = alist[i].size() - 1; j > 0; j--) {
+                    removeEdge(i, alist[i].get(1).index);
                 }
-                getAlist()[i] = null;
-                getParents()[i] = -1;
+                alist[i] = null;
+                for (int k = 0; k < totalLength; k++) {
+                    parents[k] = -1;
+                    weight[k]= 1;
+                }
                 numOfRecords--;
                 break;
             }
@@ -195,8 +190,8 @@ public class Graph {
         if (numOfRecords == 0)
             return 0;
         int max = weight[0];
-        for (int i = 1; i < weight.length; i++) {
-            if (weight[i] > max) {
+        for (int i = 1; i < totalLength; i++) {
+            if (alist[i] != null && weight[i] > max) {
                 max = weight[i];
             }
         }
