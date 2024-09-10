@@ -125,7 +125,7 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addRecord(recordC);
         graph.addEdge(0, 1);
-        assertEquals(1, graph.connectedComponents());
+        assertEquals(2, graph.connectedComponents());
         graph.addEdge(1, 2);
         assertEquals(1, graph.connectedComponents());
     }

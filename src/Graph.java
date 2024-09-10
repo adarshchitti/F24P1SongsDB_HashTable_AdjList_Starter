@@ -211,14 +211,10 @@ public class Graph {
      */
     public int connectedComponents() {
         unionGraph();
-        int temp;
-        int curr = -1;
         int components = 0;
-        for (int i = 0; i < getParents().length; i++) {
-            if (getAlist()[i] != null) {
-                temp = find(i);
-                if (curr != temp && getParents()[i] != -1) {
-                    curr = temp;
+        for (int i = 0; i < totalLength; i++) {
+            if (alist[i] != null) {
+                if (parents[i] == -1) {
                     components++;
                 }
             }
