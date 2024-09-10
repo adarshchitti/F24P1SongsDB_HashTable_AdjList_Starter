@@ -38,17 +38,10 @@ public class Graph {
      *            the record to be added
      */
     public void addRecord(Record record) {
-        if (record.index == getTotalLength())
+        if (findNextNull() == totalLength)
             expandCapacity();
-        for (int i = 0; i < getTotalLength(); i++) 
-        {
-            if (getAlist()[i] == null) 
-            {
-                getAlist()[record.index] = new DLList<>();
-                getAlist()[record.index].add(record);
-                break;
-            }
-        }
+        getAlist()[record.index] = new DLList<>();
+        getAlist()[record.index].add(record);
     }
 
 
@@ -244,6 +237,10 @@ public class Graph {
         DLList<Record>[] temp = new DLList[totalLength * 2];
         int[] tempParent = new int[totalLength * 2];
         int[] tempWeight = new int[totalLength * 2];
+        for (int i = 0; i < totalLength * 2; i++) {
+            tempParent[i] = -1; // Initialize as root
+            tempWeight[i] = 1; // Initialize each node with weight 1
+        }
         for (int i = 0; i < totalLength; i++) {
             temp[i] = alist[i];
             tempParent[i] = parents[i];
@@ -253,6 +250,19 @@ public class Graph {
         parents = tempParent;
         weight = tempWeight;
         alist = temp;
+    }
+    
+    /**
+     * Finds the next null space within adjacent list
+     * @return next null index
+     */
+    public int findNextNull() {
+        for (int i = 0; i < totalLength; i++) {
+            if (alist[i] == null) {
+                return i;
+            }
+        }
+        return totalLength;
     }
 
 

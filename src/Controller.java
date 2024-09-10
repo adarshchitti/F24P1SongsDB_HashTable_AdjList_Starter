@@ -11,7 +11,6 @@ public class Controller {
     private Hash songs;
     private Hash artists;
     private Graph fullGraph;
-    private int index = 0;
     private int src;
     private int dst;
     private int aLen;
@@ -45,8 +44,8 @@ public class Controller {
      */
     public void insert(String artist, String song) {
         if (artists.find(artist) == -1) {
-            src = index;
-            Record artistRecord = new Record(artist, index++);
+            src = fullGraph.findNextNull();
+            Record artistRecord = new Record(artist, src);
             artists.insert(artistRecord);
             fullGraph.addRecord(artistRecord);
             if (artists.getTotalSize() == (aLen * 2)) {
@@ -64,8 +63,8 @@ public class Controller {
         }
 
         if (songs.find(song) == -1) {
-            dst = index;
-            Record songRecord = new Record(song, index++);
+            dst = fullGraph.findNextNull();
+            Record songRecord = new Record(song, dst);
             songs.insert(songRecord);
             fullGraph.addRecord(songRecord);
             if (songs.getTotalSize() == (sLen * 2)) {
