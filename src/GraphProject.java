@@ -63,7 +63,7 @@ public class GraphProject {
                     case "insert":
                         scancmd.useDelimiter("<SEP>");
                         String artist = scancmd.next().trim();
-                        String song = scancmd.next();
+                        String song = scancmd.next().trim();
                         control.insert(artist, song);
                         break;
                     case "remove":
