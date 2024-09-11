@@ -1,10 +1,24 @@
+/**
+ * Record class to contains either a song or artist
+ * 
+ * @author Brantson and Adarsh
+ * @version 09.11.2024
+ */
 public class Record {
     String key;
     int index;
 
-    public Record(String key, int node) {
+    /**
+     * Constructor class for record
+     * 
+     * @param key
+     *            string data value
+     * @param index
+     *            for the graph
+     */
+    public Record(String key, int index) {
         this.key = key;
-        index = node;
+        this.index = index;
     }
 
 }

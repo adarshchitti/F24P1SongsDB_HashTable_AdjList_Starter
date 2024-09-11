@@ -6,8 +6,8 @@ import java.nio.file.Paths;
 /**
  * This class was designed to test the GraphProject
  *
- * @author <Put something here>
- * @version <Put something here>
+ * @author Brantson and Adarsh
+ * @version 09.11.2024
  */
 public class GraphProjectTest extends TestCase {
     // ----------------------------------------------------------
