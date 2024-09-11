@@ -99,6 +99,21 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.union(0, 1);
         assertEquals(graph.find(0), graph.find(1));
+        
+    }
+    /**
+     * Tests the union and find methods by performing union operations and
+     * verifying root.
+     */
+
+    public void testUnion() {
+        graph.addRecord(recordA);
+        graph.addRecord(recordB);
+        graph.addRecord(recordC);
+        graph.union(1, 2);
+        graph.union(0,1);
+        assertEquals(graph.find(0), graph.find(1));
+        
     }
 
 
@@ -108,10 +123,19 @@ public class GraphTest extends student.TestCase {
      */
 
     public void testConnectedElements() {
+        assertEquals(0,graph.connectedElements());
         graph.addRecord(recordA);
         graph.addRecord(recordB);
+        graph.addRecord(recordC);
+        graph.addRecord(new Record("recordD",3));
+        graph.addRecord(new Record("recordE",4));
+        graph.addRecord(new Record("recordF",5));
+
         graph.union(0, 1);
-        assertEquals(2, graph.connectedElements());
+        graph.union(2, 3);
+        graph.union(3, 4);
+        graph.union(4, 5);
+        assertEquals(4, graph.connectedElements());
     }
 
 
@@ -127,6 +151,8 @@ public class GraphTest extends student.TestCase {
         graph.addEdge(0, 1);
         assertEquals(2, graph.connectedComponents());
         graph.addEdge(1, 2);
+        assertEquals(1, graph.connectedComponents());
+        graph.removeRecord("recordA");
         assertEquals(1, graph.connectedComponents());
     }
 

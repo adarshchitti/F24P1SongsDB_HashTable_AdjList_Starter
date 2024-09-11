@@ -83,21 +83,6 @@ public class Graph {
 
 
     /**
-     * Prints the adjacency list representation of the graph.
-     */
-    public void print() {
-        for (int i = 0; i < getTotalLength(); i++) {
-            if (alist[i] != null) {
-                for (Record node : alist[i]) {
-                    System.out.print(node.key + " -> ");
-                }
-                System.out.println();
-            }
-        }
-    }
-
-
-    /**
      * Removes an edge between two nodes in the graph.
      *
      * @param src
@@ -120,15 +105,14 @@ public class Graph {
      */
     public void removeRecord(String record) {
         for (int i = 0; i < getTotalLength(); i++) {
-            if (alist[i] != null && alist[i].get(0).key.equals(
-                record)) {
+            if (alist[i] != null && alist[i].get(0).key.equals(record)) {
                 for (int j = alist[i].size() - 1; j > 0; j--) {
                     removeEdge(i, alist[i].get(1).index);
                 }
                 alist[i] = null;
                 for (int k = 0; k < totalLength; k++) {
                     parents[k] = -1;
-                    weight[k]= 1;
+                    weight[k] = 1;
                 }
                 numOfRecords--;
                 break;

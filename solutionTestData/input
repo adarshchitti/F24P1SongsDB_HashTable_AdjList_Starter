@@ -1,24 +1,3 @@
-insert Robert Johnson<SEP>Cross Road Blues
-insert Robert Johnson<SEP>Hellhound On My Trail
-insert Robert Johnson<SEP>Sweet Home Chicago
-insert Robert Johnson<SEP>Love In Vain
-insert Muddy Waters<SEP>Hoochie Coochie Man
-insert Muddy Waters<SEP>Manish Boy
-insert Muddy Waters<SEP>Got My Mojo Working
-insert Muddy Waters<SEP>Rolling Stone
-insert B.B. King<SEP>The Thrill Is Gone
-insert B.B. King<SEP>Every Day I Have The Blues
-insert B.B. King<SEP>Lucille
-insert B.B. King<SEP>Three O'Clock Blues
-insert Howlin' Wolf<SEP>Smokestack Lightning
-insert Howlin' Wolf<SEP>Killing Floor
-insert Howlin' Wolf<SEP>Little Red Rooster
-insert Howlin' Wolf<SEP>Wang Dang Doodle
-insert Elmore James<SEP>Dust My Broom
-insert Elmore James<SEP>Shake Your Moneymaker
-insert Elmore James<SEP>The Sky Is Crying
-insert Elmore James<SEP>It Hurts Me Too
-insert Robert Johnson<SEP>Hoochie Coochie Man
-print graph
-remove artist Robert Johnson
-print graph
+remove album Thriller
+print hey
+uiclfglv

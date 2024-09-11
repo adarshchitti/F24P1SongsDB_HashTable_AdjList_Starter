@@ -95,7 +95,7 @@ public class GraphProject {
                                 control.printGraph();
                                 break;
                             default:
-                                System.out.println("Error bad print type"
+                                System.out.println("Error bad print type "
                                     + type);
                                 break;
                         }

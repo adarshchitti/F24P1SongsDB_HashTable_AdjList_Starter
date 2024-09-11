@@ -44,13 +44,23 @@ public class HashTest extends student.TestCase {
      * Tests insertion of a record into an empty hash table.
      * Verifies that the record is inserted at the correct index.
      */
-    public void testInsertIntoEmptyTable() {
+    public void testInsert() {
         Record record = new Record("testKey", 1);
         hashTable.insert(record);
 
         int expectedIndex = Hash.h("testKey", 10);
         assertEquals(record, hashTable.getAllRecords()[expectedIndex]);
         assertEquals(1, hashTable.getNumberOfRecords());
+        hashTable.insert(new Record("hello", 2));
+        hashTable.remove("hello");
+        hashTable.insert(new Record("hello", 2));
+        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello",10)].key);
+        hashTable.insert(new Record("tetKey", 3));
+        int eind = (Hash.h("tetKey", 10)+(1))%10;
+        assertEquals(eind,hashTable.hashFind("tetKey"));
+        hashTable.insert(record);
+        assertEquals(3,hashTable.getNumberOfRecords());
+        
     }
 
 
@@ -72,6 +82,10 @@ public class HashTest extends student.TestCase {
         int index = Hash.h("removeMe", 10);
         assertEquals("TOMBSTONE", hashTable.getAllRecords()[index].key);
         assertEquals(-1, hashTable.hashFind("removeMe"));
+        hashTable.insert(new Record("helloIll",2));
+        hashTable.remove("helloIll");
+        assertEquals(2, hashTable.getNumTombstone());
+        
     }
 
 
@@ -91,6 +105,7 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("key6", 6));
         hashTable.insert(new Record("key7", 7));
         assertEquals(hashTable.getTotalSize(), 20);
+        assertEquals(6,hashTable.getNumberOfRecords());
         assertEquals(Hash.h("key1", 20), hashTable.hashFind("key1"));
         assertEquals(Hash.h("key3", 20), hashTable.hashFind("key3"));
         assertEquals(Hash.h("key4", 20), hashTable.hashFind("key4"));
@@ -115,6 +130,8 @@ public class HashTest extends student.TestCase {
             eInd = (eInd + count2 * count2) % 20;
         }
         assertEquals(eInd, hashTable.hashFind("key9"));
+        
+        
     }
 
 
