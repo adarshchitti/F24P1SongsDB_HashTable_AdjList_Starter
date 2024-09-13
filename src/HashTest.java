@@ -38,6 +38,24 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("hey5", 5));
         assertEquals(5, hashTable.find("hey5"));
     }
+    public void testFindWithCollisions() {
+        
+        assertEquals(-1, hashTable.find("nonexistent"));
+        hashTable.insert(new Record("hey", 1));
+        assertEquals(1, hashTable.find("hey"));
+        hashTable.insert(new Record("heyCollision", 2));
+        assertEquals(2, hashTable.find("heyCollision"));
+        hashTable.insert(new Record("hey3", 3));
+        assertEquals(3, hashTable.find("hey3"));
+        hashTable.insert(new Record("hey4", 4));
+        assertEquals(4, hashTable.find("hey4"));
+        hashTable.insert(new Record("collideAgain", 5));  
+        assertEquals(5, hashTable.find("collideAgain"));
+        hashTable.insert(new Record("wrapAround", 6)); 
+        assertEquals(6, hashTable.find("wrapAround"));
+        assertEquals(1, hashTable.find("hey"));
+    }
+
 
 
     /**
