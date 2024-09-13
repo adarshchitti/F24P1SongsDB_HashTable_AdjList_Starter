@@ -336,7 +336,7 @@ public class Graph {
     /**
      * Sets the tthe number of records.
      * 
-     * @param numOfRecords
+     * @param numOfRecords2
      *            the total length to set
      */
     public void setNumOfRecordsh(int numOfRecords2) {
