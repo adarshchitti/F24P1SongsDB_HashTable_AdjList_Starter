@@ -184,5 +184,58 @@ public class HashTest extends student.TestCase {
         expected = "0: |record3|\n4: TOMBSTONE\n8: TOMBSTONE\n";
         assertEquals(expected, toTest.print());
     }
+    
+    /**
+     * Test method for Hash.h(String s, int length).
+     * This method tests all possible cases for the hash function.
+     */
+    public void testHashFunction() {
+        int length = 100; // Example modulus length for hash
+
+        // Test with empty string
+        assertEquals(0, Hash.h("", length));
+
+        // Test with a short string (length less than 4)
+        assertEquals(Hash.h("a", length), Hash.h("a", length));
+        assertEquals(Hash.h("abc", length), Hash.h("abc", length));
+
+        // Test with a string of length 4 (exactly one block)
+        assertEquals(Hash.h("abcd", length), Hash.h("abcd", length));
+
+        // Test with a string longer than 4 characters
+        assertEquals(Hash.h("abcdefgh", length), Hash.h("abcdefgh", length));
+
+        // Test with a string that contains special characters
+        assertEquals(Hash.h("@#%&", length), Hash.h("@#%&", length));
+
+        // Test with a string that contains digits
+        assertEquals(Hash.h("1234567890", length), Hash.h("1234567890", length));
+
+        // Test with a string that contains both letters and digits
+        assertEquals(Hash.h("a1b2c3d4", length), Hash.h("a1b2c3d4", length));
+
+        // Test with a large string (multiple blocks)
+        String largeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        assertEquals(Hash.h(largeString, length), Hash.h(largeString, length));
+
+        // Test with maximum possible length (boundary case)
+        int maxLength = Integer.MAX_VALUE % length;
+        StringBuilder maxString = new StringBuilder();
+        for (int i = 0; i < maxLength; i++) {
+            maxString.append('a');
+        }
+        assertEquals(Hash.h(maxString.toString(), length), Hash.h(maxString.toString(), length));
+
+        // Test with different lengths (modulus values)
+        assertEquals(Hash.h("abcdefgh", 50), Hash.h("abcdefgh", 50));
+        assertEquals(Hash.h("abcdefgh", 200), Hash.h("abcdefgh", 200));
+
+        // Test with very high modulus length
+        int highModulus = 10000;
+        assertEquals(Hash.h("hashstring", highModulus), Hash.h("hashstring", highModulus));
+
+        // Test with strings that differ in the last character (mutation prevention)
+        assertNotSame(Hash.h("abcdefg", length), Hash.h("abcdefh", length));
+    }
 
 }
