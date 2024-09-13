@@ -7,7 +7,7 @@
  * This test class assumes the use of the custom hash function provided in the
  * Hash class.
  * 
- * @author Brantson
+ * @author Brantson and adarsh
  * @version 09.05.2024
  */
 public class HashTest extends student.TestCase {
@@ -38,8 +38,10 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("hey5", 5));
         assertEquals(5, hashTable.find("hey5"));
     }
+
+
     public void testFindWithCollisions() {
-        
+
         assertEquals(-1, hashTable.find("nonexistent"));
         hashTable.insert(new Record("hey", 1));
         assertEquals(1, hashTable.find("hey"));
@@ -49,16 +51,51 @@ public class HashTest extends student.TestCase {
         assertEquals(3, hashTable.find("hey3"));
         hashTable.insert(new Record("hey4", 4));
         assertEquals(4, hashTable.find("hey4"));
-        hashTable.insert(new Record("collideAgain", 5));  
+        hashTable.insert(new Record("collideAgain", 5));
         assertEquals(5, hashTable.find("collideAgain"));
-        hashTable.insert(new Record("wrapAround", 6)); 
+        hashTable.insert(new Record("wrapAround", 6));
         assertEquals(6, hashTable.find("wrapAround"));
         assertEquals(1, hashTable.find("hey"));
     }
 
 
-
+    /**
+     * Tests insertion of a record into an empty hash table.
+     * Verifies that the record is inserted at the correct index.
+     */
     public void testInsert() {
+        hashTable = new Hash(10);
+        Record record1 = new Record("A", 1);
+        Record record2 = new Record("B", 2);
+        Record record3 = new Record("C", 3);
+        Record record4 = new Record("TOMBSTONE", -1);
+
+        hashTable.insert(record1);
+        assertNotNull(hashTable.hashFind(record1.key));
+        assertEquals(record1, hashTable.getAllRecords()[hashTable.hashFind(
+            record1.key)]);
+
+        hashTable.insert(record2);
+        assertNotNull(hashTable.hashFind(record2.key));
+        assertEquals(record2, hashTable.getAllRecords()[hashTable.hashFind(
+            record2.key)]);
+
+        hashTable.getAllRecords()[hashTable.hashFind(record1.key)] = record4;
+        hashTable.insert(record3);
+        assertNotNull(hashTable.hashFind(record3.key));
+        assertEquals(record3, hashTable.getAllRecords()[hashTable.hashFind(
+            record3.key)]);
+
+        for (int i = 0; i < 6; i++) {
+            hashTable.insert(new Record("R" + i, i));
+        }
+        assertTrue(hashTable.getTotalSize() > 10);
+        assertEquals(8, hashTable.getNumberOfRecords());
+
+        hashTable.insert(record1);
+        assertEquals(9, hashTable.getNumberOfRecords());
+
+        hashTable = new Hash(10);
         Record record = new Record("testKey", 1);
         hashTable.insert(record);
 
@@ -68,13 +105,14 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("hello", 2));
         hashTable.remove("hello");
         hashTable.insert(new Record("hello", 2));
-        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello",10)].key);
+        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello",
+            10)].key);
         hashTable.insert(new Record("tetKey", 3));
-        int eind = (Hash.h("tetKey", 10)+(1))%10;
-        assertEquals(eind,hashTable.hashFind("tetKey"));
+        int eind = (Hash.h("tetKey", 10) + (1)) % 10;
+        assertEquals(eind, hashTable.hashFind("tetKey"));
         hashTable.insert(record);
-        assertEquals(3,hashTable.getNumberOfRecords());
-        
+        assertEquals(3, hashTable.getNumberOfRecords());
+
     }
 
 
@@ -196,6 +234,52 @@ public class HashTest extends student.TestCase {
         toTest.remove("record1");
         expected = "0: |record3|\n4: TOMBSTONE\n8: TOMBSTONE\n";
         assertEquals(expected, toTest.print());
+    }
+
+
+    /**
+     * Test method for Hash.h(String s, int length).
+     * This method tests all possible cases for the hash function.
+     */
+    public void testHashFunction() {
+        int length = 100;
+
+        assertEquals(0, Hash.h("", length));
+
+        assertEquals(Hash.h("a", length), Hash.h("a", length));
+        assertEquals(Hash.h("abc", length), Hash.h("abc", length));
+
+        assertEquals(Hash.h("abcd", length), Hash.h("abcd", length));
+
+        assertEquals(Hash.h("abcdefgh", length), Hash.h("abcdefgh", length));
+
+        assertEquals(Hash.h("@#%&", length), Hash.h("@#%&", length));
+
+        assertEquals(Hash.h("1234567890", length), Hash.h("1234567890",
+            length));
+
+        assertEquals(Hash.h("a1b2c3d4", length), Hash.h("a1b2c3d4", length));
+
+        String largeString =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        assertEquals(Hash.h(largeString, length), Hash.h(largeString, length));
+
+        int maxLength = Integer.MAX_VALUE % length;
+        StringBuilder maxString = new StringBuilder();
+        for (int i = 0; i < maxLength; i++) {
+            maxString.append('a');
+        }
+        assertEquals(Hash.h(maxString.toString(), length), Hash.h(maxString
+            .toString(), length));
+
+        assertEquals(Hash.h("abcdefgh", 50), Hash.h("abcdefgh", 50));
+        assertEquals(Hash.h("abcdefgh", 200), Hash.h("abcdefgh", 200));
+
+        int highModulus = 10000;
+        assertEquals(Hash.h("hashstring", highModulus), Hash.h("hashstring",
+            highModulus));
+
+        assertNotSame(Hash.h("abcdefg", length), Hash.h("abcdefh", length));
     }
 
 }

@@ -1,9 +1,8 @@
-import java.io.File;
 
 /**
  * Test Class for Graph class
  * 
- * @author Brantson Bui
+ * @author Brantson and Adarsh
  * @version 09.05.2024
  */
 public class GraphTest extends student.TestCase {
@@ -57,28 +56,22 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordA);
         graph.addRecord(recordB);
         graph.addRecord(recordC);
-        // Test case 1: Edge exists between nodes
-        graph.addEdge(0, 1); // Add edge between node 0 and node 1
-        assertTrue(graph.checkEdge(0, 1)); // Check edge from 0 to 1
-        assertFalse(graph.checkEdge(1, 0)); // Edge should be directed, so 1 ->
-                                            // 0 should not exist
+        graph.addEdge(0, 1);
+        assertTrue(graph.checkEdge(0, 1));
+        assertFalse(graph.checkEdge(1, 0));
 
-        // Test case 2: No edge exists between nodes
-        assertFalse(graph.checkEdge(0, 2)); // No edge between 0 and 2
-        assertFalse(graph.checkEdge(1, 2)); // No edge between 1 and 2
+        assertFalse(graph.checkEdge(0, 2));
+        assertFalse(graph.checkEdge(1, 2));
 
-        // Test case 3: Self-loops (edge from node to itself)
-        graph.addEdge(2, 2); // Add self-loop at node 2
-        assertTrue(graph.checkEdge(2, 2)); // Check self-loop at node 2
+        graph.addEdge(2, 2);
+        assertTrue(graph.checkEdge(2, 2));
 
-        // Test case 4: Edge removed after adding
-        graph.addEdge(1, 2); // Add edge between node 1 and node 2
-        graph.removeEdge(1, 2); // Remove the edge between node 1 and node 2
-        assertFalse(graph.checkEdge(1, 2)); // Edge should no longer exist
+        graph.addEdge(1, 2);
+        graph.removeEdge(1, 2);
+        assertFalse(graph.checkEdge(1, 2));
 
-        // Test case 5: Invalid indices (negative or out-of-bound indices)
         try {
-            graph.checkEdge(-1, 1); // Invalid source index (-1)
+            graph.checkEdge(-1, 1);
             fail("Expected an IndexOutOfBoundsException for src = -1");
         }
         catch (IndexOutOfBoundsException e) {
@@ -86,19 +79,16 @@ public class GraphTest extends student.TestCase {
         }
 
         try {
-            graph.checkEdge(1, 3); // Invalid destination index (3, out of
-                                   // bounds)
+            graph.checkEdge(1, 3);
             fail("Expected an IndexOutOfBoundsException for dst = 3");
         }
         catch (IndexOutOfBoundsException e) {
             // Expected exception
         }
 
-        // Test case 6: CheckEdge on an empty graph
         Graph emptyGraph = new Graph(0);
         try {
-            emptyGraph.checkEdge(0, 0); // No nodes in the graph, should throw
-                                        // exception
+            emptyGraph.checkEdge(0, 0);
             fail("Expected an IndexOutOfBoundsException for empty graph");
         }
         catch (IndexOutOfBoundsException e) {
@@ -126,30 +116,29 @@ public class GraphTest extends student.TestCase {
      * correctly removed, and updates are reflected in the adjacency list.
      */
     public void testRemoveRecord() {
-        
+
         graph.addRecord(recordA);
         graph.addRecord(recordB);
         graph.addRecord(recordC);
 
-        graph.addEdge(0, 1);  
-        graph.addEdge(0, 2);  
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
 
-        assertTrue(graph.checkEdge(0, 1));  
-        assertTrue(graph.checkEdge(0, 2));  
+        assertTrue(graph.checkEdge(0, 1));
+        assertTrue(graph.checkEdge(0, 2));
 
         graph.removeRecord("A");
 
-        assertNull(graph.getAlist()[0]); 
-        assertFalse(graph.checkEdge(0, 1)); 
-        assertFalse(graph.checkEdge(0, 2)); 
-        
-        assertEquals(-1, graph.getParents()[0]); 
-        assertEquals(-1, graph.getParents()[1]); 
-        assertEquals(-1, graph.getParents()[2]); 
+        assertNull(graph.getAlist()[0]);
+        assertFalse(graph.checkEdge(0, 1));
+        assertFalse(graph.checkEdge(0, 2));
 
-        assertEquals(2, graph.getNumOfRecords()); 
+        assertEquals(-1, graph.getParents()[0]);
+        assertEquals(-1, graph.getParents()[1]);
+        assertEquals(-1, graph.getParents()[2]);
+
+        assertEquals(2, graph.getNumOfRecords());
     }
-
 
 
     /**
@@ -176,11 +165,10 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addRecord(recordC);
         graph.union(1, 2);
-        assertEquals(2,graph.getWeight()[1]);
+        assertEquals(2, graph.getWeight()[1]);
         graph.union(0, 1);
-        assertEquals(3,graph.getWeight()[1]);
+        assertEquals(3, graph.getWeight()[1]);
         assertEquals(graph.find(0), graph.find(1));
-        
 
     }
 
@@ -252,5 +240,5 @@ public class GraphTest extends student.TestCase {
         assertEquals(6, graph.getTotalLength());
 
     }
-    
+
 }

@@ -162,10 +162,10 @@ public class Controller {
                 + "| does not exist in the Song database.");
         }
     }
-    
-    public Graph getGraph()
-    {
+
+
+    public Graph getGraph() {
         return fullGraph;
     }
-    
+
 }

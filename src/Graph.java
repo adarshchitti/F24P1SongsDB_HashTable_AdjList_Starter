@@ -73,8 +73,7 @@ public class Graph {
      * @return true if an edge exists between src and dst, false otherwise
      */
     public boolean checkEdge(int src, int dst) {
-        if(alist[src] == null)
-        {
+        if (alist[src] == null) {
             return false;
         }
         for (Record node : alist[src]) {
@@ -321,6 +320,8 @@ public class Graph {
     public void setTotalLength(int totalLength) {
         this.totalLength = totalLength;
     }
+
+
     /**
      * Gets the numebr of records in the graph.
      * 
@@ -340,6 +341,8 @@ public class Graph {
     public void setNumOfRecordsh(int numOfRecords) {
         this.numOfRecords = numOfRecords;
     }
+
+
     /**
      * Gets the weight records in the graph.
      * 

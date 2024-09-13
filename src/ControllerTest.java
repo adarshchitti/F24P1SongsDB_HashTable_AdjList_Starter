@@ -1,13 +1,25 @@
 import student.TestCase;
 
+/**
+ * Test Class for the Controller class
+ * 
+ * @author Brantson and Adarsh
+ * @version 09.11.2024
+ */
 public class ControllerTest extends TestCase {
     private Controller toTest;
 
+    /**
+     * Called before every method
+     */
     public void setUp() {
         toTest = new Controller(4);
     }
 
 
+    /**
+     * Tests the insert methods of the project
+     */
     public void testInsert() {
 
         toTest.insert("Khalid", "Talk");
@@ -29,7 +41,6 @@ public class ControllerTest extends TestCase {
         toTest.getGraph().addEdge(1, 0);
 
         toTest.insert("A", "B");
-
 
         String actual = systemOut().getHistory();
         String expected = "|Khalid| is added to the Artist database.\n"
@@ -62,12 +73,12 @@ public class ControllerTest extends TestCase {
         toTest.removeSong("Photograph");
 
         String actualAfterRemove = systemOut().getHistory();
-        String expectedAfterRemove ="|Ed Sheeran| is added to the Artist database.\n"
-            + "|Photograph| is added to the Song database.\n"
-            + "|Non Existent Song| does not exist in the Song database.\n"+
-            "|Photograph| is removed from the Song database.\n";
+        String expectedAfterRemove =
+            "|Ed Sheeran| is added to the Artist database.\n"
+                + "|Photograph| is added to the Song database.\n"
+                + "|Non Existent Song| does not exist in the Song database.\n"
+                + "|Photograph| is removed from the Song database.\n";
         assertFuzzyEquals(expectedAfterRemove, actualAfterRemove);
     }
-
 
 }

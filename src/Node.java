@@ -2,6 +2,9 @@
  * A class representing a single node in a linked chain.
  * Each node contains a data element and a reference to the next node in the
  * chain.
+ * 
+ * @author Brantson and Adarsh
+ * @version 09.11.2024
  *
  * @param <T>
  *            the type of the data stored in the node
