@@ -79,14 +79,11 @@ public class Controller {
 
         if (!fullGraph.checkEdge(src, dst)) {
             fullGraph.addEdge(src, dst);
+            fullGraph.addEdge(dst, src);
         }
         else {
             System.out.println("|" + artist + "<SEP>" + song
                 + "| duplicates a record already in the database.");
-        }
-
-        if (!fullGraph.checkEdge(dst, src)) {
-            fullGraph.addEdge(dst, src);
         }
 
     }
@@ -165,4 +162,10 @@ public class Controller {
                 + "| does not exist in the Song database.");
         }
     }
+    
+    public Graph getGraph()
+    {
+        return fullGraph;
+    }
+    
 }

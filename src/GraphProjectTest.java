@@ -110,4 +110,18 @@ public class GraphProjectTest extends TestCase {
         assertNotNull(myEx);
     }
     
+    /**
+     * Tests the case where there are no more lines
+     */
+    public void testNoMoreLines() throws Exception {
+
+        GraphProject.beginParsingByLine("solutionTestData/empty");
+
+        String actualOutput = systemOut().getHistory();
+        String expectedOutput = "";  
+
+        assertFuzzyEquals(expectedOutput, actualOutput);
+
+    }
+    
 }

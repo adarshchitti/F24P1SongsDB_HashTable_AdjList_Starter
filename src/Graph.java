@@ -73,6 +73,10 @@ public class Graph {
      * @return true if an edge exists between src and dst, false otherwise
      */
     public boolean checkEdge(int src, int dst) {
+        if(alist[src] == null)
+        {
+            return false;
+        }
         for (Record node : alist[src]) {
             if (node.equals(alist[dst].get(0))) {
                 return true;
@@ -336,4 +340,13 @@ public class Graph {
     public void setNumOfRecordsh(int numOfRecords) {
         this.numOfRecords = numOfRecords;
     }
+    /**
+     * Gets the weight records in the graph.
+     * 
+     * @return the weight
+     */
+    public int[] getWeight() {
+        return weight;
+    }
+
 }

@@ -148,6 +148,14 @@ public class DLListTest extends TestCase {
             e = exception;
         }
         assertTrue(e instanceof IndexOutOfBoundsException);
+        e = null;
+        try {
+            list.add("B");
+        }
+        catch (Exception exception) {
+            e = exception;
+        }
+        assertNull(e);
     }
 
 

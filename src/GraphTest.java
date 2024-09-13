@@ -1,3 +1,5 @@
+import java.io.File;
+
 /**
  * Test Class for Graph class
  * 
@@ -121,17 +123,33 @@ public class GraphTest extends student.TestCase {
 
     /**
      * Tests the removeRecord method to ensure records and their edges are
-     * correctly removed.
+     * correctly removed, and updates are reflected in the adjacency list.
      */
-
     public void testRemoveRecord() {
+        
         graph.addRecord(recordA);
         graph.addRecord(recordB);
-        graph.addEdge(0, 1);
+        graph.addRecord(recordC);
+
+        graph.addEdge(0, 1);  
+        graph.addEdge(0, 2);  
+
+        assertTrue(graph.checkEdge(0, 1));  
+        assertTrue(graph.checkEdge(0, 2));  
+
         graph.removeRecord("A");
-        assertNull(graph.getAlist()[0]);
-        assertEquals(-1, graph.getParents()[0]);
+
+        assertNull(graph.getAlist()[0]); 
+        assertFalse(graph.checkEdge(0, 1)); 
+        assertFalse(graph.checkEdge(0, 2)); 
+        
+        assertEquals(-1, graph.getParents()[0]); 
+        assertEquals(-1, graph.getParents()[1]); 
+        assertEquals(-1, graph.getParents()[2]); 
+
+        assertEquals(2, graph.getNumOfRecords()); 
     }
+
 
 
     /**
@@ -158,8 +176,11 @@ public class GraphTest extends student.TestCase {
         graph.addRecord(recordB);
         graph.addRecord(recordC);
         graph.union(1, 2);
+        assertEquals(2,graph.getWeight()[1]);
         graph.union(0, 1);
+        assertEquals(3,graph.getWeight()[1]);
         assertEquals(graph.find(0), graph.find(1));
+        
 
     }
 
@@ -231,4 +252,5 @@ public class GraphTest extends student.TestCase {
         assertEquals(6, graph.getTotalLength());
 
     }
+    
 }
