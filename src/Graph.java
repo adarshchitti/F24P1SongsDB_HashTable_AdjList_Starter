@@ -317,4 +317,23 @@ public class Graph {
     public void setTotalLength(int totalLength) {
         this.totalLength = totalLength;
     }
+    /**
+     * Gets the numebr of records in the graph.
+     * 
+     * @return the number of records
+     */
+    public int getNumOfRecords() {
+        return numOfRecords;
+    }
+
+
+    /**
+     * Sets the tthe number of records.
+     * 
+     * @param numOfRecords
+     *            the total length to set
+     */
+    public void setNumOfRecordsh(int numOfRecords) {
+        this.numOfRecords = numOfRecords;
+    }
 }

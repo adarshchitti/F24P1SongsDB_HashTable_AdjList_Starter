@@ -6,8 +6,8 @@ import java.io.*;
  * Main for Graph project (CS3114/CS5040 Fall 2023 Project 4).
  * Usage: java GraphProject <init-hash-size> <command-file>
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Adarsh and Brantson
+ * @version 09.11.2024
  *
  */
 
@@ -49,7 +49,8 @@ public class GraphProject {
      * @param filename
      *            to be read
      */
-    public static void beginParsingByLine(String filename) {
+    public static void beginParsingByLine(String filename) 
+    {
         try {
             Controller control = new Controller(length);
             Scanner sc = new Scanner(new File(filename));

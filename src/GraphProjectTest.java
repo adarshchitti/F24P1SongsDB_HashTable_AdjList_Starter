@@ -95,7 +95,19 @@ public class GraphProjectTest extends TestCase {
 
         // Compare the two outputs
         assertFuzzyEquals(expectedOutput, actualOutput);
-
+        Exception myEx = new Exception();
+        try
+        {
+            args[1]="noneExistent";
+            GraphProject.main(args);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace(System.out);
+            myEx = ex;
+        }
+        
+        assertNotNull(myEx);
     }
     
 }

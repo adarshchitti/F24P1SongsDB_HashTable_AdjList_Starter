@@ -46,7 +46,7 @@ public class DLListTest extends TestCase {
         }
         assertTrue(e instanceof IndexOutOfBoundsException);
     }
-
+    
 
     /**
      * Tests that objects can be removed at the beginning and end and that the
@@ -159,9 +159,10 @@ public class DLListTest extends TestCase {
         assertFalse(list.remove(null));
         list.add("A");
         list.add("B");
+        assertEquals(2, list.size());
         assertTrue(list.remove("A"));
-        assertEquals("B", list.get(0));
         assertEquals(1, list.size());
+        assertEquals("B", list.get(0));
         list.add("C");
         assertTrue(list.remove("C"));
         assertEquals("B", list.get(0));
@@ -255,6 +256,7 @@ public class DLListTest extends TestCase {
         list.add("B");
         assertEquals("{A, B}", list.toString());
     }
+    
 
 
     /**
