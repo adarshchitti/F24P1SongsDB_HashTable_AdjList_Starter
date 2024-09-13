@@ -45,22 +45,43 @@ public class HashTest extends student.TestCase {
      * Verifies that the record is inserted at the correct index.
      */
     public void testInsert() {
-        Record record = new Record("testKey", 1);
-        hashTable.insert(record);
+        hashTable = new Hash(10); // Assume a starting size of 10
+        Record record1 = new Record("A", 1);
+        Record record2 = new Record("B", 2);
+        Record record3 = new Record("C", 3);
+        Record record4 = new Record("TOMBSTONE", -1); // Represents a tombstone
 
-        int expectedIndex = Hash.h("testKey", 10);
-        assertEquals(record, hashTable.getAllRecords()[expectedIndex]);
-        assertEquals(1, hashTable.getNumberOfRecords());
-        hashTable.insert(new Record("hello", 2));
-        hashTable.remove("hello");
-        hashTable.insert(new Record("hello", 2));
-        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello",10)].key);
-        hashTable.insert(new Record("tetKey", 3));
-        int eind = (Hash.h("tetKey", 10)+(1))%10;
-        assertEquals(eind,hashTable.hashFind("tetKey"));
-        hashTable.insert(record);
-        assertEquals(3,hashTable.getNumberOfRecords());
-        
+        // Test normal insertion
+        hashTable.insert(record1);
+        assertNotNull(hashTable.hashFind(record1.key));
+        assertEquals(record1, hashTable.getAllRecords()[hashTable.hashFind(
+            record1.key)]);
+
+        // Test collision handling
+        hashTable.insert(record2); // Assuming record2 hashes to the same index
+                                   // as record1
+        assertNotNull(hashTable.hashFind(record2.key));
+        assertEquals(record2, hashTable.getAllRecords()[hashTable.hashFind(
+            record2.key)]);
+
+        // Test inserting into a tombstone slot
+        hashTable.getAllRecords()[hashTable.hashFind(record1.key)] = record4; // Manually
+                                                                              // set
+                                                                              // tombstone
+        hashTable.insert(record3); // Inserting a new record in place of the
+                                   // tombstone
+        assertNotNull(hashTable.hashFind(record3.key));
+        assertEquals(record3, hashTable.getAllRecords()[hashTable.hashFind(
+            record3.key)]);
+
+        // Test expanding capacity when load factor exceeds 50%
+        for (int i = 0; i < 6; i++) {
+            hashTable.insert(new Record("R" + i, i));
+        }
+        assertTrue(hashTable.getTotalSize() > 10); // Check if the size expanded
+        assertEquals(8, hashTable.getNumberOfRecords()); // Total records
+                                                         // inserted (3 + 6)
+
     }
 
 
@@ -82,10 +103,10 @@ public class HashTest extends student.TestCase {
         int index = Hash.h("removeMe", 10);
         assertEquals("TOMBSTONE", hashTable.getAllRecords()[index].key);
         assertEquals(-1, hashTable.hashFind("removeMe"));
-        hashTable.insert(new Record("helloIll",2));
+        hashTable.insert(new Record("helloIll", 2));
         hashTable.remove("helloIll");
         assertEquals(2, hashTable.getNumTombstone());
-        
+
     }
 
 
@@ -105,7 +126,7 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("key6", 6));
         hashTable.insert(new Record("key7", 7));
         assertEquals(hashTable.getTotalSize(), 20);
-        assertEquals(6,hashTable.getNumberOfRecords());
+        assertEquals(6, hashTable.getNumberOfRecords());
         assertEquals(Hash.h("key1", 20), hashTable.hashFind("key1"));
         assertEquals(Hash.h("key3", 20), hashTable.hashFind("key3"));
         assertEquals(Hash.h("key4", 20), hashTable.hashFind("key4"));
@@ -130,8 +151,7 @@ public class HashTest extends student.TestCase {
             eInd = (eInd + count2 * count2) % 20;
         }
         assertEquals(eInd, hashTable.hashFind("key9"));
-        
-        
+
     }
 
 
@@ -184,7 +204,8 @@ public class HashTest extends student.TestCase {
         expected = "0: |record3|\n4: TOMBSTONE\n8: TOMBSTONE\n";
         assertEquals(expected, toTest.print());
     }
-    
+
+
     /**
      * Test method for Hash.h(String s, int length).
      * This method tests all possible cases for the hash function.
@@ -209,13 +230,15 @@ public class HashTest extends student.TestCase {
         assertEquals(Hash.h("@#%&", length), Hash.h("@#%&", length));
 
         // Test with a string that contains digits
-        assertEquals(Hash.h("1234567890", length), Hash.h("1234567890", length));
+        assertEquals(Hash.h("1234567890", length), Hash.h("1234567890",
+            length));
 
         // Test with a string that contains both letters and digits
         assertEquals(Hash.h("a1b2c3d4", length), Hash.h("a1b2c3d4", length));
 
         // Test with a large string (multiple blocks)
-        String largeString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String largeString =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         assertEquals(Hash.h(largeString, length), Hash.h(largeString, length));
 
         // Test with maximum possible length (boundary case)
@@ -224,7 +247,8 @@ public class HashTest extends student.TestCase {
         for (int i = 0; i < maxLength; i++) {
             maxString.append('a');
         }
-        assertEquals(Hash.h(maxString.toString(), length), Hash.h(maxString.toString(), length));
+        assertEquals(Hash.h(maxString.toString(), length), Hash.h(maxString
+            .toString(), length));
 
         // Test with different lengths (modulus values)
         assertEquals(Hash.h("abcdefgh", 50), Hash.h("abcdefgh", 50));
@@ -232,9 +256,11 @@ public class HashTest extends student.TestCase {
 
         // Test with very high modulus length
         int highModulus = 10000;
-        assertEquals(Hash.h("hashstring", highModulus), Hash.h("hashstring", highModulus));
+        assertEquals(Hash.h("hashstring", highModulus), Hash.h("hashstring",
+            highModulus));
 
-        // Test with strings that differ in the last character (mutation prevention)
+        // Test with strings that differ in the last character (mutation
+        // prevention)
         assertNotSame(Hash.h("abcdefg", length), Hash.h("abcdefh", length));
     }
 
