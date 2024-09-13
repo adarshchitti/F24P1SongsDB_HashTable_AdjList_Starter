@@ -80,7 +80,12 @@ public class HashTest extends student.TestCase {
         }
         assertTrue(hashTable.getTotalSize() > 10); // Check if the size expanded
         assertEquals(8, hashTable.getNumberOfRecords()); // Total records
-                                                         // inserted (3 + 6)
+                                                         // inserted (3 + 5)
+
+        // Test duplicate insertion (record already exists)
+        hashTable.insert(record1); // Try inserting record1 again
+        assertEquals(9, hashTable.getNumberOfRecords()); // Count should not
+                                                         // change
 
     }
 
