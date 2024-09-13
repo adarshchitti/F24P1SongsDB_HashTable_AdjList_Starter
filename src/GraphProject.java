@@ -49,8 +49,7 @@ public class GraphProject {
      * @param filename
      *            to be read
      */
-    public static void beginParsingByLine(String filename) 
-    {
+    public static void beginParsingByLine(String filename) {
         try {
             Controller control = new Controller(length);
             Scanner sc = new Scanner(new File(filename));

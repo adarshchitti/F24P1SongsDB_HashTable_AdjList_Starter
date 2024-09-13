@@ -40,6 +40,9 @@ public class HashTest extends student.TestCase {
     }
 
 
+    /**
+     * Tests find with collisions involved
+     */
     public void testFindWithCollisions() {
 
         assertEquals(-1, hashTable.find("nonexistent"));
@@ -71,20 +74,21 @@ public class HashTest extends student.TestCase {
         Record record4 = new Record("TOMBSTONE", -1);
 
         hashTable.insert(record1);
-        assertNotNull(hashTable.hashFind(record1.key));
+        assertNotNull(hashTable.hashFind(record1.getKey()));
         assertEquals(record1, hashTable.getAllRecords()[hashTable.hashFind(
-            record1.key)]);
+            record1.getKey())]);
 
         hashTable.insert(record2);
-        assertNotNull(hashTable.hashFind(record2.key));
+        assertNotNull(hashTable.hashFind(record2.getKey()));
         assertEquals(record2, hashTable.getAllRecords()[hashTable.hashFind(
-            record2.key)]);
+            record2.getKey())]);
 
-        hashTable.getAllRecords()[hashTable.hashFind(record1.key)] = record4;
+        hashTable.getAllRecords()[hashTable.hashFind(record1.getKey())] =
+            record4;
         hashTable.insert(record3);
-        assertNotNull(hashTable.hashFind(record3.key));
+        assertNotNull(hashTable.hashFind(record3.getKey()));
         assertEquals(record3, hashTable.getAllRecords()[hashTable.hashFind(
-            record3.key)]);
+            record3.getKey())]);
 
         for (int i = 0; i < 6; i++) {
             hashTable.insert(new Record("R" + i, i));
@@ -105,8 +109,8 @@ public class HashTest extends student.TestCase {
         hashTable.insert(new Record("hello", 2));
         hashTable.remove("hello");
         hashTable.insert(new Record("hello", 2));
-        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello",
-            10)].key);
+        assertEquals("hello", hashTable.getAllRecords()[Hash.h("hello", 10)]
+            .getKey());
         hashTable.insert(new Record("tetKey", 3));
         int eind = (Hash.h("tetKey", 10) + (1)) % 10;
         assertEquals(eind, hashTable.hashFind("tetKey"));
@@ -132,7 +136,7 @@ public class HashTest extends student.TestCase {
         assertEquals(1, hashTable.getNumTombstone());
 
         int index = Hash.h("removeMe", 10);
-        assertEquals("TOMBSTONE", hashTable.getAllRecords()[index].key);
+        assertEquals("TOMBSTONE", hashTable.getAllRecords()[index].getKey());
         assertEquals(-1, hashTable.hashFind("removeMe"));
         hashTable.insert(new Record("helloIll", 2));
         hashTable.remove("helloIll");

@@ -43,8 +43,8 @@ public class Graph {
     public void addRecord(Record record) {
         if (findNextNull() == totalLength)
             expandCapacity();
-        alist[record.index] = new DLList<>();
-        alist[record.index].add(record);
+        alist[record.getIndex()] = new DLList<>();
+        alist[record.getIndex()].add(record);
         numOfRecords++;
     }
 
@@ -108,9 +108,9 @@ public class Graph {
      */
     public void removeRecord(String record) {
         for (int i = 0; i < getTotalLength(); i++) {
-            if (alist[i] != null && alist[i].get(0).key.equals(record)) {
+            if (alist[i] != null && alist[i].get(0).getKey().equals(record)) {
                 for (int j = alist[i].size() - 1; j > 0; j--) {
-                    removeEdge(i, alist[i].get(1).index);
+                    removeEdge(i, alist[i].get(1).getIndex());
                 }
                 alist[i] = null;
                 for (int k = 0; k < totalLength; k++) {
@@ -212,7 +212,8 @@ public class Graph {
         for (int i = 0; i < totalLength; i++) {
             if (alist[i] != null) {
                 for (int j = 1; j < alist[i].size(); j++) {
-                    union(alist[i].get(0).index, alist[i].get(j).index);
+                    union(alist[i].get(0).getIndex(), alist[i].get(j)
+                        .getIndex());
                 }
             }
         }
@@ -338,8 +339,8 @@ public class Graph {
      * @param numOfRecords
      *            the total length to set
      */
-    public void setNumOfRecordsh(int numOfRecords) {
-        this.numOfRecords = numOfRecords;
+    public void setNumOfRecordsh(int numOfRecords2) {
+        numOfRecords = numOfRecords2;
     }
 
 

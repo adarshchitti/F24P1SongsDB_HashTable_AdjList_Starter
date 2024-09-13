@@ -41,8 +41,8 @@ public class Hash {
         int hVal = h(value, getTotalSize());
         int i = 0;
         while (allRecords[index] != null) {
-            if (allRecords[index].key.equals(value)) {
-                return allRecords[index].index;
+            if (allRecords[index].getKey().equals(value)) {
+                return allRecords[index].getIndex();
             }
             i++;
             index = (hVal + (i * i)) % getTotalSize();
@@ -65,7 +65,7 @@ public class Hash {
         int hVal = h(value, getTotalSize());
         int i = 0;
         while (allRecords[index] != null) {
-            if (allRecords[index].key.equals(value)) {
+            if (allRecords[index].getKey().equals(value)) {
                 return index;
             }
             i++;
@@ -88,7 +88,7 @@ public class Hash {
         if (index == -1) {
             return false;
         }
-        allRecords[index].key = "TOMBSTONE";
+        allRecords[index].setKey("TOMBSTONE");
         numTombstone++;
         numberOfRecords--;
         return true;
@@ -108,12 +108,12 @@ public class Hash {
         if (numberOfRecords >= (totalSize / 2)) {
             expandCapacity();
         }
-        if (hashFind(record.key) == -1) {
-            int index = h(record.key, totalSize);
-            int hVal = h(record.key, totalSize);
+        if (hashFind(record.getKey()) == -1) {
+            int index = h(record.getKey(), totalSize);
+            int hVal = h(record.getKey(), totalSize);
             int count = 0;
             while (allRecords[index] != null) {
-                if (allRecords[index].key.equals("TOMBSTONE")) {
+                if (allRecords[index].getKey().equals("TOMBSTONE")) {
                     break;
                 }
                 count++;
@@ -137,9 +137,9 @@ public class Hash {
         numberOfRecords = 0;
 
         for (int i = 0; i < temp.length; i++) {
-            if (temp[i] != null && !temp[i].key.equals("TOMBSTONE")) {
-                int index = h(temp[i].key, totalSize);
-                int hVal = h(temp[i].key, totalSize);
+            if (temp[i] != null && !temp[i].getKey().equals("TOMBSTONE")) {
+                int index = h(temp[i].getKey(), totalSize);
+                int hVal = h(temp[i].getKey(), totalSize);
                 int count = 0;
                 while (allRecords[index] != null) {
                     count++;
@@ -198,11 +198,11 @@ public class Hash {
         String result = "";
         for (int i = 0; i < totalSize; i++) {
             if (allRecords[i] != null) {
-                if (allRecords[i].key.equals("TOMBSTONE")) {
-                    result = result + i + ": " + allRecords[i].key + "\n";
+                if (allRecords[i].getKey().equals("TOMBSTONE")) {
+                    result = result + i + ": " + allRecords[i].getKey() + "\n";
                 }
                 else {
-                    result = result + i + ":" + " |" + allRecords[i].key
+                    result = result + i + ":" + " |" + allRecords[i].getKey()
                         + "|\n";
                 }
 

@@ -69,7 +69,8 @@ public class GraphProjectTest extends TestCase {
         assertFuzzyEquals(expectedOutput, actualOutput);
 
     }
-    
+
+
     /**
      * Example 2: This method runs on a command sample IO file
      * You will write similar test cases
@@ -90,26 +91,24 @@ public class GraphProjectTest extends TestCase {
         String actualOutput = systemOut().getHistory();
 
         // Expected output from file
-        String expectedOutput = readFile(
-            "solutionTestData/output");
+        String expectedOutput = readFile("solutionTestData/output");
 
         // Compare the two outputs
         assertFuzzyEquals(expectedOutput, actualOutput);
         Exception myEx = new Exception();
-        try
-        {
-            args[1]="noneExistent";
+        try {
+            args[1] = "noneExistent";
             GraphProject.main(args);
         }
-        catch(Exception ex)
-        {
+        catch (Exception ex) {
             ex.printStackTrace(System.out);
             myEx = ex;
         }
-        
+
         assertNotNull(myEx);
     }
-    
+
+
     /**
      * Tests the case where there are no more lines
      */
@@ -118,10 +117,10 @@ public class GraphProjectTest extends TestCase {
         GraphProject.beginParsingByLine("solutionTestData/empty");
 
         String actualOutput = systemOut().getHistory();
-        String expectedOutput = "";  
+        String expectedOutput = "";
 
         assertFuzzyEquals(expectedOutput, actualOutput);
 
     }
-    
+
 }

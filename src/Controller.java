@@ -164,6 +164,11 @@ public class Controller {
     }
 
 
+    /**
+     * Returns the current graph
+     * 
+     * @return current graph
+     */
     public Graph getGraph() {
         return fullGraph;
     }
